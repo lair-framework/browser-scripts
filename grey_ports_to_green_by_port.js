@@ -1,8 +1,8 @@
 var greyPortsToGreenByPort = function(port) {
   // Changes the status of all grey ports of the given port number to green
   //
-  // created by: Dan Kottmann
-  // usage: greyPortsToGreenByPort(80);
+  // Created by: Dan Kottmann
+  // Usage: greyPortsToGreenByPort(80);
 
   var PORT = port;
   var PROJECT_ID = Session.get('projectId');

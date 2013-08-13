@@ -1,9 +1,11 @@
-var greyHostsnoPortsGreen = function() {
+var greyHostsNoPortsGreen = function() {
   // Loops through each host from the selected project
   // and changes the status of any gray hosts with no open ports
   // to green
   // 
-  // created by: Dan Kottmann
+  // Usage: greyHostsNoPortsGreen();
+  // Created by: Dan Kottmann
+
   var PROJECT_ID = Session.get('projectId');
   var MODIFIED_BY = Meteor.user().emails[0].address;
   var hosts = Hosts.find({'project_id': PROJECT_ID, 'status': 'lair-grey'}).fetch();
