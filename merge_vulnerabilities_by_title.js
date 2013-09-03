@@ -93,9 +93,10 @@ var mergeVulnerabilitiesByTitle = function(vulnerabilityRegex, newTitle, cvss) {
   // I found this off the internet
   function unique(arr) {
     var hash = {}, result = [];
-    for ( var i = 0, l = arr.length; i < l; ++i ) {
-      if ( !hash.hasOwnProperty(arr[i]) ) { //it works with objects! in FF, at least
-        hash[ arr[i] ] = true;
+    for (var i = 0, l = arr.length; i < l; ++i) {
+      var objString = JSON.stringify(arr[i]);
+      if (!hash.hasOwnProperty(objString)) { 
+        hash[objString] = true;
         result.push(arr[i]);
       }
     }
