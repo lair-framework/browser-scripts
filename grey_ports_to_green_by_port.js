@@ -3,6 +3,7 @@ var greyPortsToGreenByPort = function(port) {
   //
   // Created by: Dan Kottmann
   // Usage: greyPortsToGreenByPort(80);
+  // Requires client-side updates: true
 
   var PORT = port;
   var PROJECT_ID = Session.get('projectId');

@@ -3,6 +3,7 @@ var greyPortsToGreenByService = function(service) {
   //
   // Created by: Dan Kottmann
   // Usage: greyPortsToGreenByPort("dce-rpc");
+  // Requires client-side updates: true
 
   var SERVICE = service;
   var PROJECT_ID = Session.get('projectId');

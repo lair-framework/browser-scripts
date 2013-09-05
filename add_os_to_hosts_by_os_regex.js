@@ -5,6 +5,7 @@ var addOsToHostsByOsRegex = function(os_regex, new_os, weight) {
   //
   // Usage: addOsToHostsByOsRegex(/.*Linux.*/, "Linux", 100);
   // Created by: Dan Kottmann
+  // Requires client-side updates: false
 
   var PROJECT_ID = Session.get('projectId');
   var MODIFIED_BY = Meteor.user().emails[0].address;

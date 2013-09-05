@@ -4,6 +4,7 @@ var generateUniquePortString = function(protocol) {
   // Usages: generateUniquePortString()
   //         generateUniquePortString('tcp')
   // Created by: Tom Steele
+  // Requires client-side updates: false
 
   var PROJECT_ID = Session.get('projectId');
   var query = {"project_id": PROJECT_ID};

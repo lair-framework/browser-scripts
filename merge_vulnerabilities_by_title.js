@@ -11,6 +11,7 @@ var mergeVulnerabilitiesByTitle = function(vulnerabilityRegex, newTitle, cvss) {
   //
   // Usage: mergeVulnerabilitiesByTitle(/^VMSA.*/, "Multiple VMWare Vulneraiblities", "10.0")
   // Created by: Tom Steele
+  // Requires client-side updates: false
 
   // Do some light variable checking, you're still pretty much on your own
   if (typeof vulnerabilityRegex !== 'object') {

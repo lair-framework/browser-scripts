@@ -6,7 +6,7 @@ Collection of small JavaScript functions and scripts that can be used in the bro
 ##Usage##
 
 1. Log into Lair.
-2. On the initial page under "Settings" ensure that you have enabled "client-side updates" (very important, this will not work without this enabled).
+2. If the script comments have "Requires client-side updates: true" you will need to turn on client updates, if not, you can skip this step. On the initial page under "Settings" ensure that you have enabled "client-side updates".
 3. Load your desired project.
 4. From within your browser, open your JavaScript console. How to do this is specific to your browser and/or plugins used.
 5. Copy the script and/or function definition in its entirety; paste it into your JavaScript console.

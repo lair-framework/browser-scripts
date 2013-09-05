@@ -5,6 +5,7 @@ var greyHostsNoPortsGreen = function() {
   // 
   // Usage: greyHostsNoPortsGreen();
   // Created by: Dan Kottmann
+  // Requires client-side updates: true
 
   var PROJECT_ID = Session.get('projectId');
   var MODIFIED_BY = Meteor.user().emails[0].address;
