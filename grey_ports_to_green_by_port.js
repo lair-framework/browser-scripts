@@ -11,12 +11,10 @@ var greyPortsToGreenByPort = function(port) {
   if(typeof ports=== 'undefined' || ports.length === 0) {
     console.log("No ports found");
   } else {
-    var c = 0;
     ports.forEach(function(port) {
-      c++;
       console.log("Updating: " + port.port + "/" + port.protocol);
       Ports.update({'_id': port._id}, {$set: {'status': 'lair-green', 'last_modified_by': MODIFIED_BY}});
     });
-    console.log(c + " port(s) updated");
+    console.log(ports.length + " port(s) updated");
   }
 }
