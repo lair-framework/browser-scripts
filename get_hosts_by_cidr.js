@@ -18,6 +18,7 @@ function getHostsByCIDR() {
       var bin = parseInt(octet[i], 10).toString(2);
       bincidr += (bin.length >= pad.length ? bin : pad.slice(0, pad.length-bin.length) + bin);
     };
+    
     return bincidr.slice(0, parseInt(cidr, 10));
   }
 
@@ -27,9 +28,9 @@ function getHostsByCIDR() {
   });
 
   nets.forEach(function(cidr) {
-  cidr = cidr.split("/");
-  var net = cidr[0].split(".");
-  var netbin = dec2Bin(net, cidr[1]);
+    cidr = cidr.split("/");
+    var net = cidr[0].split(".");
+    var netbin = dec2Bin(net, cidr[1]);
   
     for (var key in hostip) {
       if ((key.slice(0, parseInt(cidr[1], 10))) == netbin) {
