@@ -1,9 +1,11 @@
 var portsToColorByHosts = function(hosts, port, color) {
   // Changes the status of provided port to provided color by Array of hosts
+  // for lair-blue, lair-orange, lair-red; Host status is updated to COLOR also
   //
   // Created by: Matt Burch
   // Usage: portsToColorByHosts(["192.168.1.1",192.168.1.2"],80,'lair-blue');
   // Supported Colors: lair-grey, lair-green, lair-blue, lair-orange, lair-red
+  // 
   // Requires client-side updates: true
   var HOSTTargets = hosts;
   var PORT = port;
@@ -12,7 +14,7 @@ var portsToColorByHosts = function(hosts, port, color) {
   var MODIFIED_BY = Meteor.user().emails[0].address;
   var COUNT = 0;
   
-  if (COLOR != 'lair-grey' | COLOR != 'lair-green' | COLOR != 'lair-blue' | COLOR != 'lair-orange' | COLOR != 'lair-red') {
+  if (COLOR !== 'lair-grey' && COLOR !== 'lair-green' && COLOR !== 'lair-blue' && COLOR !== 'lair-orange' && COLOR !== 'lair-red') {
     throw {name : "Wrong Color", message : "Provided COLOR: \"" + COLOR + "\" is not Lair compliant"};
   }
   HOSTTargets.forEach( function(target) {
@@ -23,6 +25,10 @@ var portsToColorByHosts = function(hosts, port, color) {
         hostPort.forEach( function(port) {
           console.log("Updating: "  + target  +  ":"  + port.port  +  "/"  + port.protocol);
           Ports.update({'_id' : port._id}, {$set : {'status' : COLOR, 'last_modified_by' : MODIFIED_BY}});
+          if (COLOR == 'lair-blue'  || COLOR  ==  'lair-orange'  || COLOR  ==  'lair-red') {
+            console.log("Updating: " + target + " status \"" + COLOR + "\"");
+            Hosts.update({ '_id' : host[0]._id}, {$set : { 'status' : COLOR, 'last_modified_by' : MODIFIED_BY}});
+          }          
           COUNT ++;
         })
       }
