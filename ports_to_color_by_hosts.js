@@ -13,7 +13,7 @@ var portsToColorByHosts = function(hosts, port, color) {
   var COUNT = 0;
   
   if (COLOR != 'lair-grey' | COLOR != 'lair-green' | COLOR != 'lair-blue' | COLOR != 'lair-orange' | COLOR != 'lair-red') {
-    throw {name : "Wrong Color", message : "Provided COLOR: " + COLOR + " is not Lair compliant"};
+    throw {name : "Wrong Color", message : "Provided COLOR: \"" + COLOR + "\" is not Lair compliant"};
   }
   HOSTTargets.forEach( function(target) {
     host = Hosts.find({project_id : PROJECT_ID, 'string_addr' : target}).fetch();
