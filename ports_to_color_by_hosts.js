@@ -17,7 +17,7 @@ var portsToColorByHosts = function(hosts, port, color) {
     'lair-red' : 4,
     'lair-orange' : 3,
     'lair-blue' : 2,
-    'lair-green' : 1,
+    'lair-green' : 0,
     'lair-grey' : 0
   };
   
