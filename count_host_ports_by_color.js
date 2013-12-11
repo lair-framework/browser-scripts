@@ -6,7 +6,6 @@ countHostPortsByColor = function(color) {
   // Supported Colors: console.log(STATUS_MAP)
   //
   var COLOR = color;
-  var COUNT = 1;
   var HOSTS = {};
   var PROJECT_ID = Session.get('projectId');
   
@@ -22,7 +21,7 @@ countHostPortsByColor = function(color) {
       HOSTS[host.string_addr] ++;
     }
     else {
-      HOSTS[host.string_addr] = 0;
+      HOSTS[host.string_addr] = 1;
     }
   })
   for(var host in HOSTS) {
