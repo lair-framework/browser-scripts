@@ -15,7 +15,7 @@ countHostPortsByColor = function(color) {
   }
 
   var PORTS = Ports.find({'project_id' : PROJECT_ID, 'status' : COLOR}).fetch();
-  PORTS.forEach(function(port) {
+  PORTS.forEach( function(port) {
     host = Hosts.findOne({'project_id' : PROJECT_ID, '_id' :  port.host_id})
     if(HOSTS.hasOwnProperty(host.string_addr)) {
       HOSTS[host.string_addr] ++;
