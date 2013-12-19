@@ -11,13 +11,13 @@ countHostPortsByColor = function(color) {
   
   if (STATUS_MAP.indexOf(COLOR) === -1) {
     console.log("Lair Supported colors: " + STATUS_MAP);
-    throw {name  :  "Wrong Color", message  :  "Provided COLOR: \""  + COLOR  +  "\" is not Lair compliant"};
+    throw {name : "Wrong Color", message : "Provided COLOR: \"" + COLOR + "\" is not Lair compliant"};
   }
 
-  var PORTS = Ports.find({'project_id' : PROJECT_ID,  'status' :  COLOR}).fetch();
-  PORTS.forEach( function(port) {
-    host = Hosts.findOne({'project_id' : PROJECT_ID,  '_id' :  port.host_id})
-    if( HOSTS.hasOwnProperty(host.string_addr)) {
+  var PORTS = Ports.find({'project_id' : PROJECT_ID, 'status' : COLOR}).fetch();
+  PORTS.forEach(function(port) {
+    host = Hosts.findOne({'project_id' : PROJECT_ID, '_id' :  port.host_id})
+    if(HOSTS.hasOwnProperty(host.string_addr)) {
       HOSTS[host.string_addr] ++;
     }
     else {
