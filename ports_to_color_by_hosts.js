@@ -28,20 +28,20 @@ var portsToColorByHosts = function(hosts, port, color) {
   HOSTTargets.forEach( function(target) {
     host = Hosts.findOne({project_id : PROJECT_ID, 'string_addr' : target});
     hostPort = Ports.find({'host_id' : host._id, 'port' : PORT}).fetch();
-      if(typeof hostPort == 'undefined') { 
-        return; 
-      }
-      else {
-        hostPort.forEach( function(port) {
-          console.log("Updating: " + target + ":" + port.port + "/" + port.protocol);
-          Ports.update({'_id' : port._id}, {$set : {'status' : COLOR, 'last_modified_by' : MODIFIED_BY}});
-          if (STATUS[COLOR] > STATUS[host.status]) {
-            console.log("Updating: " + target + " status \"" + COLOR + "\"");
-            Hosts.update({ '_id' : host._id}, {$set : { 'status' : COLOR, 'last_modified_by' : MODIFIED_BY}});
-          }
-          COUNT ++;
-        })
-      }
+    if(typeof hostPort == 'undefined') { 
+      return; 
+    }
+    else {
+      hostPort.forEach( function(port) {
+        console.log("Updating: " + target + ":" + port.port + "/" + port.protocol);
+        Ports.update({'_id' : port._id}, {$set : {'status' : COLOR, 'last_modified_by' : MODIFIED_BY}});
+        if (STATUS[COLOR] > STATUS[host.status]) {
+          console.log("Updating: " + target + " status \"" + COLOR + "\"");
+          Hosts.update({ '_id' : host._id}, {$set : { 'status' : COLOR, 'last_modified_by' : MODIFIED_BY}});
+        }
+        COUNT ++;
+      })
+    }
   })
   console.log(COUNT + " port(s) updated");
 }
