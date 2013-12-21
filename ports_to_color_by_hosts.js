@@ -3,7 +3,7 @@ var portsToColorByHosts = function(hosts, port, color) {
   // for lair-blue, lair-orange, lair-red; Host status is updated to COLOR also
   //
   // Created by: Matt Burch
-  // Usage: portsToColorByHosts(["192.168.1.1",192.168.1.2"],80,'lair-blue');
+  // Usage: portsToColorByHosts(["192.168.1.1","192.168.1.2"],80,'lair-blue');
   // Supported Colors: console.log(STATUS_MAP)
   //
   // Requires client-side updates: true
