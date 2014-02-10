@@ -39,6 +39,7 @@ function negateHostsByCIDR() {
     }
   });
   
-  for (var key in hostip) { hostTargets.push(hostip[key]); }
-  return hostTargets.sort().join("\n");
+  for (var key in hostip) {
+    console.log(hostip[key]);
+  }
 }
