@@ -25,6 +25,6 @@ countHostPortsByColor = function(color) {
     }
   })
   for(var host in HOSTS) {
-    console.log(host + "/" + HOSTS[host]);
+    console.log(host + " (" + HOSTS[host] + ")");
   }
 }
