@@ -10,7 +10,7 @@ var iisOsProfiler = function() {
   var PROJECT_ID = Session.get('projectId');
   var WEIGHT = 90;
   var TOOL = "IIS OS Profiler";
-  var ports = Ports.find({"project_id": PROJECT_ID, "product": {"$regex": /IIS\s\d+\.\d+/, "$options": "i"}}).fetch();
+  var ports = Ports.find({"project_id": PROJECT_ID, "product": {"$regex": /IIS\s(httpd\s)?\d+\.\d+/, "$options": "i"}}).fetch();
   ports.forEach(function(port) {
     var product = port.product;
     var res = product.match(/\d+\.\d+/);
