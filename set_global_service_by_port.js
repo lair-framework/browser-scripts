@@ -6,7 +6,7 @@ function setGlobalServiceByPort(port, protocol, service) {
   // Requires client-side updates: false
   
   var projectId = Session.get('projectId');
-  var ports = Ports.find({"project_id": projectId, "port": port, "protocol": protocol});
+  var ports = Ports.find({"project_id": projectId, "port": port, "protocol": protocol, "service": {"$ne": service}});
   ports.forEach(function(port) {
     Meteor.call("setService", projectId, port._id, service, function(err) {
       if (!err) {
