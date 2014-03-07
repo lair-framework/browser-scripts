@@ -27,7 +27,7 @@ var mergeVulnerabilitiesByTitle = function(vulnerabilityRegex, newTitle, cvss) {
   var projectId = Session.get('projectId');
   var vulnerabilities = Vulnerabilities.find({"project_id": projectId, "title": {"$regex": vulnerabilityRegex}}).fetch();
   if (vulnerabilities.length < 1) {
-    return console.log('Did not find any vulnerabilities with the given regex')
+    return console.log('Did not find any vulnerabilities with the given regex');
   }
   // If the vulnerability given in newTitle already exists, then we push it onto the regex list so we can combine them
   // Remove the existing vulnerability first

@@ -15,7 +15,7 @@ var generateURLList = function() {
   var c = 0;
   hosts.forEach(function(host) {
     var names = host.hostnames;
-    var hostId = host._id
+    var hostId = host._id;
     var query = {"project_id": projectId, "host_id": hostId};
     query.service = {"$regex": 'web|www|ssl|http|https', "$options": "i"};
     var ports = Ports.find(query).fetch();
@@ -33,4 +33,4 @@ var generateURLList = function() {
     });
   });
   console.log(c + " URL(s) generated");
-}
+};

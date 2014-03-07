@@ -1,4 +1,4 @@
-function hostnamesToNessus() {
+var hostnamesToNessus = function() {
   // Generate a list of hostname[string_addr] targets suitable for input into Nessus.
   //
   // Created by: Tom Steele
@@ -16,4 +16,4 @@ function hostnamesToNessus() {
   vhostTargets.forEach(function(item) {
     console.log(item);
   });
-}
+};

@@ -11,6 +11,6 @@ var generateUniquePortString = function(protocol) {
   if (typeof protocol !== 'undefined') {
     query.protocol = protocol;
   }
-  var ports = Ports.find(query).fetch()
+  var ports = Ports.find(query).fetch();
   return _.uniq(_.pluck(ports, 'port')).sort(function(a,b) { return a - b; }).join(',');
-}
+};

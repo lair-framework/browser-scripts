@@ -16,7 +16,7 @@ var greyHostsNoPortsGreen = function() {
     var c = 0;
     hosts.forEach(function(host) {
       var portCount = Ports.find({'host_id': host._id, 'port': {$gt: 0}}).count();
-      if(portCount == 0) {
+      if(portCount === 0) {
         c++;
         console.log("Updating: " + host.string_addr);
         Hosts.update({'_id': host._id}, {$set: {'status': 'lair-green', 'last_modified_by': MODIFIED_BY}});

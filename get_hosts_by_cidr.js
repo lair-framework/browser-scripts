@@ -1,4 +1,4 @@
-function getHostsByCIDR() {
+var getHostsByCIDR = function() {
   // Generate a list of hostname[string_addr] targets from supplied CIDR range
   //
   // Created by: Matt Burch
@@ -15,9 +15,9 @@ function getHostsByCIDR() {
     bincidr = (bin.length >= pad.length ? bin : pad.slice(0, pad.length-bin.length) + bin);
     
     for (i = 1; i <= octet.length; i ++) {
-      var bin = parseInt(octet[i], 10).toString(2);
+      bin = parseInt(octet[i], 10).toString(2);
       bincidr += (bin.length >= pad.length ? bin : pad.slice(0, pad.length-bin.length) + bin);
-    };
+    }
     
     return bincidr.slice(0, parseInt(cidr, 10));
   }
@@ -40,4 +40,4 @@ function getHostsByCIDR() {
   });
 
   return hostTargets.sort().join("\n");
-}
+};

@@ -40,8 +40,8 @@ var portsToColorByHosts = function(hosts, port, color) {
           Hosts.update({ '_id' : host._id}, {$set : { 'status' : COLOR, 'last_modified_by' : MODIFIED_BY}});
         }
         COUNT ++;
-      })
+      });
     }
-  })
+  });
   console.log(COUNT + " port(s) updated");
-}
+};

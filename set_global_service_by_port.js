@@ -1,4 +1,4 @@
-function setGlobalServiceByPort(port, protocol, service) {
+var setGlobalServiceByPort = function(port, protocol, service) {
   // Set the service name for the specified port
   //
   // Usage: setGlobalServiceByPort(443, "tcp", "https");
@@ -14,4 +14,4 @@ function setGlobalServiceByPort(port, protocol, service) {
       }
     });
   });
-}
+};

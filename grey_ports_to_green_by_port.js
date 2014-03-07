@@ -18,4 +18,4 @@ var greyPortsToGreenByPort = function(port) {
     });
     console.log(ports.length + " port(s) updated");
   }
-}
+};

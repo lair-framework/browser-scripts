@@ -1,4 +1,4 @@
-function negateHostsByCIDR() {
+var negateHostsByCIDR = function() {
   // Generate a list of hostname[string_addr] targets which do not exist in CIDR range
   //
   // Created by: Matt Burch
@@ -15,9 +15,9 @@ function negateHostsByCIDR() {
     bincidr = (bin.length >= pad.length ? bin : pad.slice(0, pad.length-bin.length) + bin);
     
     for (i = 1; i <= octet.length; i ++) {
-      var bin = parseInt(octet[i], 10).toString(2);
+      bin = parseInt(octet[i], 10).toString(2);
       bincidr += (bin.length >= pad.length ? bin : pad.slice(0, pad.length-bin.length) + bin);
-    };
+    }
     
     return bincidr.slice(0, parseInt(cidr, 10));
   }
@@ -30,7 +30,7 @@ function negateHostsByCIDR() {
   nets.forEach(function(cidr) {
     cidr = cidr.split("/");
     var net = cidr[0].split(".");
-    var netbin = dec2Bin(net, cidr[1])
+    var netbin = dec2Bin(net, cidr[1]);
     
     for (var key in hostip) {
       if ((key.slice(0, parseInt(cidr[1], 10))) == netbin) {
@@ -41,4 +41,4 @@ function negateHostsByCIDR() {
   
   for (var key in hostip) { hostTargets.push(hostip[key]); }
   return hostTargets.sort().join("\n");
-}
+};

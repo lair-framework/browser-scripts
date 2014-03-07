@@ -1,4 +1,4 @@
-listHostPortsByColor = function(color) {
+var listHostPortsByColor = function(color) {
   // Logs a list of all ports by COLOR per host
   //
   // Created by: Matt Burch
@@ -15,7 +15,7 @@ listHostPortsByColor = function(color) {
 
   var PORTS = Ports.find({'project_id' : PROJECT_ID,  'status' :  COLOR}).fetch();
   PORTS.forEach( function(port) {
-    host = Hosts.findOne({'project_id' : PROJECT_ID,  '_id' :  port.host_id})
+    host = Hosts.findOne({'project_id' : PROJECT_ID,  '_id' :  port.host_id});
     console.log(host.string_addr + ":" + port.port + "/" + port.protocol);
-  })
-}
+  });
+};

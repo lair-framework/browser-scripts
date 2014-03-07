@@ -18,4 +18,4 @@ var greyPortsToGreenByService = function(service) {
     });
     console.log(ports.length + " port(s) updated");
   }
-}
+};
