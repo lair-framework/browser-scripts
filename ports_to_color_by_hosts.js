@@ -34,10 +34,10 @@ var portsToColorByHosts = function(hosts, port, color) {
     else {
       hostPort.forEach( function(port) {
         console.log("Updating: " + target + ":" + port.port + "/" + port.protocol);
-        Ports.update({'_id' : port._id}, {$set : {'status' : COLOR, 'last_modified_by' : MODIFIED_BY}});
+        Meteor.call("setPortStatus", PROJECT_ID, port._id, COLOR)
         if (STATUS[COLOR] > STATUS[host.status]) {
           console.log("Updating: " + target + " status \"" + COLOR + "\"");
-          Hosts.update({ '_id' : host._id}, {$set : { 'status' : COLOR, 'last_modified_by' : MODIFIED_BY}});
+          Meteor.call("setHostStatus", PROJECT_ID, host._id, COLOR)
         }
         COUNT ++;
       })
