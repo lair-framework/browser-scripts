@@ -12,9 +12,10 @@ var filterHostsNoPorts = function() {
   var hostid = undefined;
 
   var hosts = Hosts.find({"project_id": PROJECT_ID}).fetch();
-  hosts.forEach(function(host){   
+  hosts.forEach(function(host){
+    hostid = host._id;   
     ports = Ports.find({"project_id": PROJECT_ID, "host_id": host._id}).fetch();
-    ports.forEach(function(port) {
+    ports.forEach(function(port) {      
       //check if port is 0 and that notes are empty - add to port array
       if(port.port <= 0 && port.notes < 1) {
         portarray.push(port.port);
@@ -23,11 +24,10 @@ var filterHostsNoPorts = function() {
       if(port.port > 0) {
         portarray.push(port.port);
       };
-      hostid = port.host_id;      
     });    
     var len = portarray.length;
     //check last index for 0 element - add host to delete array
-    if(portarray[portarray.length-1] <= 0) {
+    if((portarray[portarray.length-1] <= 0) || (portarray.length <= 0)) {
       delarray.push(hostid);
     };
     portarray.length = 0;
@@ -35,6 +35,7 @@ var filterHostsNoPorts = function() {
   });
   var length = delarray.length;
   for (var x=0; x < length; x++) {
+    console.log("Removing HostID: " + delarray[x]);
     Meteor.call('removeHost', PROJECT_ID, delarray[x]);
   };
 };
