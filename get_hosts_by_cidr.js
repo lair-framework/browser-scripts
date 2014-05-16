@@ -34,10 +34,8 @@ var getHostsByCIDR = function() {
   
     for (var key in hostip) {
       if ((key.slice(0, parseInt(cidr[1], 10))) == netbin) {
-        hostTargets.push(hostip[key]);
+        console.log(hostip[key]);
       }
     }
   });
-
-  return hostTargets.sort().join("\n");
-};
+}
