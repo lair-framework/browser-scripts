@@ -1,10 +1,10 @@
-var delBadPorts = function(lastModBy, ipAddr) {
+var delete_bad_ports = function(lastModBy, ipAddr) {
   // Looks at a host and deletes any port by 
   // specified "Last Modified By" value.
   // Useful if a scanner adds large sum of bad ports.
   //
   //
-  // Usage: delBadPorts("nexpose", "192.168.1.141")
+  // Usage: delete_bad_ports("nexpose", "192.168.1.141")
   // Created by: Ryan Dorey
   // Requires client-side updates: true
 
