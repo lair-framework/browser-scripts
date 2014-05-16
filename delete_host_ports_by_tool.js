@@ -1,10 +1,10 @@
-var delete_host_ports_by_tool = function(lastModBy, ipAddr) {
+var deleteHostPortsByTool = function(lastModBy, ipAddr) {
   // Looks at a host and deletes any port by 
   // specified "Last Modified By" value.
   // Useful if a scanner adds large sum of bad ports.
   //
   //
-  // Usage: delete_host_ports_by_tool("nexpose", "192.168.1.141")
+  // Usage: deleteHostPortsByTool("nexpose", "192.168.1.141")
   // Created by: Ryan Dorey
   // Requires client-side updates: true
 
