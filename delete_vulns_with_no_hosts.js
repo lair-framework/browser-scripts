@@ -26,6 +26,6 @@ var deleteVulnsNoHosts = function() {
         Meteor.call('removeVulnerability', PROJECT_ID, vulnId, function(err) {});
        }
     });
-    console.log(c + " vuln(s) removed")
+    console.log("Total of " + c + " vuln(s) removed")
   }
 };
