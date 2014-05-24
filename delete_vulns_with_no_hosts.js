@@ -14,7 +14,7 @@ var deleteVulnsNoHosts = function() {
   var vulns = Vulnerabilities.find({'project_id': PROJECT_ID, 'hosts': {$size: 0}}).fetch();
 
   if(typeof vulns === 'undefined' || vulns.length === 0) {
-    console.log("No vulnerabilities present");
+    console.log("No orphaned vulnerabilities present");
   } else {
     var c = 0;
     vulns.forEach(function(vulnerability) {
