@@ -10,7 +10,6 @@ var deleteorphanedVulnsNoHosts = function() {
   // Requires client-side updates: true
 
 
-  var vulnCount = 0;
   var PROJECT_ID = Session.get('projectId');
   var orphanedVulns = Vulnerabilities.find({'project_id': PROJECT_ID, 'hosts': {$size: 0}}).fetch();
 
@@ -18,10 +17,9 @@ var deleteorphanedVulnsNoHosts = function() {
     console.log("No orphaned vulnerabilities present");
   } else {
     orphanedVulns.forEach(function(vulnerability) {
-      vulnCount++;
         console.log("Removing: " + vulnerability.title);
         Meteor.call('removeVulnerability', PROJECT_ID, vulnerability._id, function(err) {});
     });
-    console.log("Total of " + vulnCount + " vuln(s) removed")
+    console.log("Total of " + orphanedVulns.length + " vuln(s) removed")
   }
 };
