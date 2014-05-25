@@ -14,7 +14,6 @@ var deleteHostPortsByTool = function(ipAddr, lastModBy) {
   var host = Hosts.findOne({'project_id': PROJECT_ID, 'string_addr': ipAddr});
   if(typeof host === 'undefined' || host.length === 0) {
     console.log("No matching host found")
-    console.log(host)
   }else {
 
   var ports = Ports.find({'project_id': PROJECT_ID, 'host_id': host._id, "last_modified_by": lastModBy}).fetch();
