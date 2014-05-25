@@ -12,8 +12,12 @@ var deleteHostPortsByTool = function(ipAddr, lastModBy) {
   var MODIFIED_BY = Meteor.user().emails[0].address;
   
   var host = Hosts.findOne({'project_id': PROJECT_ID, 'string_addr': ipAddr});
-  var ports = Ports.find({'project_id': PROJECT_ID, 'host_id': host._id, "last_modified_by": lastModBy}).fetch();
+  if(typeof host === 'undefined' || host.length === 0) {
+    console.log("No matching host found")
+    console.log(host)
+  }else {
 
+  var ports = Ports.find({'project_id': PROJECT_ID, 'host_id': host._id, "last_modified_by": lastModBy}).fetch();
   if(typeof ports === 'undefined' || ports.length === 0) {
     console.log("No matching ports found");
   } else { 
@@ -22,5 +26,6 @@ var deleteHostPortsByTool = function(ipAddr, lastModBy) {
       Meteor.call('removePort', PROJECT_ID, port._id, function(err) {});     
     });
     console.log("Total of " + ports.length + " port(s) removed.");
+   }
  }
 };
