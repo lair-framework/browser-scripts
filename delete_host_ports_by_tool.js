@@ -12,7 +12,7 @@ var deleteHostPortsByTool = function(ipAddr, lastModBy) {
   var MODIFIED_BY = Meteor.user().emails[0].address;
   
   var host = Hosts.findOne({'project_id': PROJECT_ID, 'string_addr': ipAddr});
-  if(typeof host === 'undefined' || host.length === 0) {
+  if(typeof host === 'undefined') {
     console.log("No matching host found")
   }else {
 
