@@ -1,4 +1,4 @@
-var listUnknownOpenPorts = function (scope, outputFormat) {
+gvar listUnknownOpenPorts = function (scope, outputFormat) {
     // Prints a list of all "unknown" open ports for each host
     // to prepare for additional efforts to identify services
     //
@@ -15,9 +15,9 @@ var listUnknownOpenPorts = function (scope, outputFormat) {
     // Created by: Alain Iamburg
 
     var PROJECT_ID = Session.get('projectId');
-    var hostlist = new Array();
-    var tcpports = new Array();
-    var udpports = new Array();
+    var hostlist = [];
+    var tcpports = [];
+    var udpports = [];
 
     // FOR each port of each host
     var hosts = Hosts.find({
@@ -30,35 +30,35 @@ var listUnknownOpenPorts = function (scope, outputFormat) {
         }).fetch();
         ports.forEach(function (port) {
             if (port.port > 0) {
-                if (scope == "product") { 
-                    if (port.product == "unknown") {
+                if (scope === "product") { 
+                    if (port.product === "unknown") {
                         hostlist.push(host.string_addr);
-                        if (port.protocol == "tcp") {
+                        if (port.protocol === "tcp") {
                             tcpports.push(port.port);
                         }
-                        else if (port.protocol == "udp") {
+                        else if (port.protocol === "udp") {
                             udpports.push(port.port);
                         }
                     }
                 }
-                else if (scope == "service") {
-                    if (port.service == "unknown") {
+                else if (scope === "service") {
+                    if (port.service === "unknown") {
                         hostlist.push(host.string_addr);
-                        if (port.protocol == "tcp") {
+                        if (port.protocol === "tcp") {
                             tcpports.push(port.port);
                         }
-                        else if (port.protocol == "udp") {
+                        else if (port.protocol === "udp") {
                             udpports.push(port.port);
                         }
                     }
                 }
-                else if (scope == "both") {
-                    if (port.service == "unknown" || port.product == "unknown") {
+                else if (scope === "both") {
+                    if (port.service === "unknown" || port.product === "unknown") {
                         hostlist.push(host.string_addr);
-                        if (port.protocol == "tcp") {
+                        if (port.protocol === "tcp") {
                             tcpports.push(port.port);
                         }
-                        else if (port.protocol == "udp") {
+                        else if (port.protocol === "udp") {
                             udpports.push(port.port);
                         }
                     }
@@ -67,7 +67,7 @@ var listUnknownOpenPorts = function (scope, outputFormat) {
         });
         
         // Output nmap command line format for each host and its unknown open ports
-        if (outputFormat == "nmap") {
+        if (outputFormat === "nmap") {
             if (tcpports.length > 0 && udpports.length > 0) {
                 console.log("nmap -v -sV --version-all -sS -sU " + host.string_addr + " -p T:" + tcpports.toString() + ",U:" + udpports.toString());
             }
@@ -83,7 +83,7 @@ var listUnknownOpenPorts = function (scope, outputFormat) {
 
     });
     
-    if ((tcpports.length > 0 || udpports.length > 0) && outputFormat == "list") {
+    if ((tcpports.length > 0 || udpports.length > 0) && outputFormat === "list") {
         tcpportsUniq = tcpports.filter(function (elem, pos) {
             return tcpports.indexOf(elem) == pos;
         })
