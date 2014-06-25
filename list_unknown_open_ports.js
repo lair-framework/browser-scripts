@@ -1,4 +1,4 @@
-gvar listUnknownOpenPorts = function (scope, outputFormat) {
+var listUnknownOpenPorts = function (scope, outputFormat) {
     // Prints a list of all "unknown" open ports for each host
     // to prepare for additional efforts to identify services
     //
