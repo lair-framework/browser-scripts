@@ -1,17 +1,35 @@
 var mergeVulnerabilitiesByTitle = function(vulnerabilityRegex, newTitle, cvss) {
   // Merges all vulnerabilities identified by a regular expression into a new or existing vulnerability
   // provided by newTitle.
-  // I highly recommend you perform a dry run yourself and see what vulnerabilities the regex is going
-  // to match, something lie the following should do.
-  //
-  // var vulnerabilities = Vulnerabilities.find({"title": {"$regex": /.SOME_REGEX.*$/}}).fetch()
-  // vulnerabilities.forEach(function(v) {
-  //   console.log(v);
-  // });
   //
   // Usage: mergeVulnerabilitiesByTitle(/^VMSA.*/, "Multiple VMWare Vulneraiblities", "10.0")
   // Created by: Tom Steele
   // Requires client-side updates: false
+  //
+  // I highly recommend you perform a dry run yourself and see what vulnerabilities the regex is going
+  // to match, something like the following should do.
+  //
+  /*-------------------------------------------------------------------------------------------------
+  
+   var testVulnSearch = function(testRegex) {
+    // Test your regex search criteria prior 
+    // to using it for vuln merging in Lair. 
+   
+    // Created by: Ryan Dorey
+    // Usage: testVulnSearch(/^.*SSH/)
+    // Requires client-side updates: false
+  
+     var projectId = Session.get('projectId');
+  
+     var vulnerabilities = Vulnerabilities.find({"project_id": projectId, "title": {"$regex": testRegex}}).fetch();
+     vulnerabilities.forEach(function(vulnerability) {
+       console.log("Title: " + vulnerability.title + " - CVSS: " + vulnerability.cvss);
+     });
+     console.log("Total found: " + vulnerabilities.length);
+   }
+  
+  -------------------------------------------------------------------------------------------------*/
+
 
   // Do some light variable checking, you're still pretty much on your own
   if (typeof vulnerabilityRegex !== 'object') {
