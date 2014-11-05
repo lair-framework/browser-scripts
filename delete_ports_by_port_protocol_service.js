@@ -4,6 +4,7 @@ var deletePorts = function(port, protocol, service) {
 	// deletePorts(4172, "udp", "unknown");
 	//Usage
 	// deletePorts(port, protocol, service);
+	// deletePorts(0, "udp", "general");
 	//Author: Alex Lauerman
 	//Requires client-side updates: false
 
