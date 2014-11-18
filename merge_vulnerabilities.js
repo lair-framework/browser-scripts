@@ -1,17 +1,26 @@
 var mergeVulnerabilities = function(titleRegex, minCVSS, maxCVSS, hostsRegex, newTitle, newCVSS, update) {
   // Merges all vulnerabilities identified by the regular expressions into a new or existing vulnerability
-  // provided by newTitle.  The update parameter determines whether it's a "dry run" with output, or an actual merge.
+  // provided by newTitle.  
   //
   // Usage: 
-  // mergeVulnerabilitiesByTitle(/Apache/i, 7.0, 10, /.*/, "Apache 2.x servers are vulnerable to multiple high risk issues", "10", false); 
-  // mergeVulnerabilitiesByTitle(/Apache/i, 7.0, 10, /.*/, "Apache 2.x servers are vulnerable to multiple high risk issues", "10", true);
+  // mergeVulnerabilities(/Apache/i, 7, 10, /.*/, "Apache 2.x servers are vulnerable to multiple high risk issues", "max", false);
+  // mergeVulnerabilities(/Apache/i, 7, 10, /.*/, "Apache 2.x servers are vulnerable to multiple high risk issues", "max", true);
+  //
+  // titleRegex - regex to search titles
+  // minCVSS - minimum CVSS score to include
+  // maxCVSS - maximum CVSS score to include
+  // hostsRegex - host IPs to include in filter
+  // newTitle - title of the new vulnerability
+  // newCVSS - new CVSS score, or choose "max" to pick the highest CVSS score of that group
+  // update - The update parameter determines whether it's a "dry run" with output, or an actual merge.
+  //
   // Created by: Alex Lauerman and Tom Steele
   // Requires client-side updates: false
   //
   //
   //-------------------------------------------------------------------------------------------------
   
-  // Do some light variable checking (not on all params), you're still pretty much on your own
+    // Do some light variable checking, you're still pretty much on your own
   if (typeof titleRegex !== 'object') {
     return console.log('Vulnerability regex can not be a string, must be a object');
   }
@@ -34,7 +43,6 @@ var mergeVulnerabilities = function(titleRegex, minCVSS, maxCVSS, hostsRegex, ne
 	 //vulnerabilities.sort(sortByHostCount)
 	 //vulnerabilities.sort(sortByTitle);
 	 vulnerabilities.sort(sortByCVSS);
-	 
 	 vulnerabilities.forEach(function(vulnerability) {
 	   console.log("CVSS: " + vulnerability.cvss + " - Hosts: " + vulnerability.hosts.length + " - Title: " + vulnerability.title);
 	   if(vulnerability.cvss > highestCVSS)
