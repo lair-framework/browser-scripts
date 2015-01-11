@@ -2,9 +2,11 @@ var generateWebDiscoTargetList = function() {
   // Generate a target list of URLs for webDisco.py
   //
   // Created by: Dan Kottmann (general URL export)
-  // Updated by: Ryan Dorey (for use with webDisco.py)
+  // Updated by: Ryan Dorey (for use with webDisco.py) & Alex Lauerman
   // Usage: generateWebDiscoTargetList();
   // Requires client-side updates: false
+  // Note: This only matches based on a few likely conditions and won't necissarily identify 
+  // 100% of SSL services, so please keep this mind as you run this.
 
   var projectId = Session.get('projectId');
   var q = {"project_id": projectId};
@@ -22,9 +24,15 @@ var generateWebDiscoTargetList = function() {
     var ports = Ports.find(query).fetch();
     ports.forEach(function(port) {
       var protocol = 'http';
-      if (port.service.match(/(ssl|https)/g)) {
+      if (port.service.match(/(ssl|https)/g) ){ 
         protocol = 'https';
       }
+      port.notes.forEach(function(note){
+          if(note.content.match(/SSL/))
+          {
+              protocol = 'https';
+          }
+      });
       c++;
       console.log(protocol + ',' + host.string_addr + ',' + port.port + ",");
       names.forEach(function(n) {
