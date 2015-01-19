@@ -6,7 +6,8 @@ var generateWebDiscoTargetList = function() {
   // Usage: generateWebDiscoTargetList();
   // Requires client-side updates: false
   // Note: This only matches based on a few likely conditions and won't necissarily identify 
-  // 100% of SSL services, so please keep this mind as you run this.
+  // 100% of SSL services, so please keep this mind as you run this. 
+  // Additionally, it could result in some false positives for non-http services that use SSL
 
   var projectId = Session.get('projectId');
   var q = {"project_id": projectId};
@@ -28,8 +29,7 @@ var generateWebDiscoTargetList = function() {
         protocol = 'https';
       }
       port.notes.forEach(function(note) {
-          if(note.content.match(/SSL/))
-          {
+          if(note.content.match(/SSL/)) {
               protocol = 'https';
           }
       });
