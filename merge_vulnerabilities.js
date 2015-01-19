@@ -12,7 +12,7 @@ var mergeVulnerabilities = function (titleRegex, minCVSS, maxCVSS, hostsRegex, n
     // hostsRegex - host IPs to include in filter
     // newTitle - title of the new vulnerability
     // newCVSS - new CVSS score, or choose "max" to pick the highest CVSS score of that group
-    // update - The update parameter determines whether it's a "dry run" with output, or an actual merge.
+    // update - The update parameter determines whether it's a "dry run" with output, or an actual merge. update = true will delete old entries
     //
     // Created by: Alex Lauerman and Tom Steele
     // Requires client-side updates: false
@@ -60,7 +60,7 @@ var mergeVulnerabilities = function (titleRegex, minCVSS, maxCVSS, hostsRegex, n
 
     console.log("Total found: " + vulnerabilities.length + " Highest CVSS: " + highestCVSS);
 
-    if (!update) {
+    if (update) {
         if (newCVSS == "max") {
             newCVSS = highestCVSS;
         }
