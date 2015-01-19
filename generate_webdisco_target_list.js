@@ -24,10 +24,10 @@ var generateWebDiscoTargetList = function() {
     var ports = Ports.find(query).fetch();
     ports.forEach(function(port) {
       var protocol = 'http';
-      if (port.service.match(/(ssl|https)/g)){ 
+      if (port.service.match(/(ssl|https)/g)) { 
         protocol = 'https';
       }
-      port.notes.forEach(function(note){
+      port.notes.forEach(function(note) {
           if(note.content.match(/SSL/))
           {
               protocol = 'https';
