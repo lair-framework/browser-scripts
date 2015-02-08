@@ -1,9 +1,9 @@
-Lair-Browser-Scripts
+browser-scripts
 ====================
 
 Collection of small JavaScript functions and scripts that can be used in the browser to interact with Lair
 
-##Usage##
+## Usage
 
 1. Log into Lair.
 2. If the script comments have "Requires client-side updates: true" you will need to turn on client updates, if not, you can skip this step. On the initial page under "Settings" ensure that you have enabled "client-side updates".
