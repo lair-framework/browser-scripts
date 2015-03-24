@@ -36,6 +36,10 @@ var filterHostsNoPorts = function() {
   var length = delarray.length;
   for (var x=0; x < length; x++) {
     console.log("Removing HostID: " + delarray[x]);
-    Meteor.call('removeHost', PROJECT_ID, delarray[x]);
+    Meteor.call('removeHost', PROJECT_ID, delarray[x], function(err) {
+      if (!err) {
+        Meteor.call('removeHostFromVulnerabilities', PROJECT_ID, delarray[x]);
+      }
+    });
   };
 };
