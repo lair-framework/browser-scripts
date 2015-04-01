@@ -11,17 +11,17 @@ var deleteHostsByStatus = function (status) {  
         'project_id': PROJECT_ID,
         'status': status
     }).fetch();  
-    if (typeof hosts === 'undefined' || hosts.length === 0) {    
-        console.log("No matching hosts found");  
-    } else {    
-        hosts.forEach(function (host) {      
-            console.log("Removing " + host.string_addr);      
-            Meteor.call('removeHost', PROJECT_ID, host._id, function (err) {
-                if (!err) {
-                    Meteor.call('removeHostFromVulnerabilities', PROJECT_ID, host.string_addr);
-                }
-            });    
-        });    
-        console.log("Total of " + hosts.length + " host(s) removed.");
+    if (hosts.length < 1) {    
+        console.log("No matching hosts found");
+        return;
     }
+    hosts.forEach(function (host) {      
+        console.log("Removing " + host.string_addr);      
+        Meteor.call('removeHost', PROJECT_ID, host._id, function (err) {
+            if (!err) {
+                Meteor.call('removeHostFromVulnerabilities', PROJECT_ID, host.string_addr);
+            }
+        });    
+    });    
+    console.log("Total of " + hosts.length + " host(s) removed.");
 };
