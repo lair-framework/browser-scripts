@@ -4,6 +4,7 @@ var getHostsByCIDR = function () {
     // Created by: Matt Burch
     // Usage: getHostsByCIDR("x.x.x.x/x") or getHostsByCIDR("x.x.x.x/x","y.y.y.y/y");
     //
+
     var hostTargets = [];
     var nets = Array.prototype.slice.call(arguments, 0);
     var hosts = Hosts.find({

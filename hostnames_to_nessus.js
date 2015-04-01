@@ -4,6 +4,7 @@ var hostnamesToNessus = function () {
     // Created by: Tom Steele
     // Usage: hostnamesToNessus();
     // Requires client-side updates: false
+
     var hosts = Hosts.find({
         project_id: Session.get('projectId')
     }).fetch();

@@ -42,10 +42,10 @@ var portsToColorByHosts = function (hosts, port, color) {
         } else {
             hostPort.forEach(function (port) {
                 console.log("Updating: " + target + ":" + port.port + "/" + port.protocol);
-                Meteor.call("setPortStatus", PROJECT_ID, port._id, COLOR)
+                Meteor.call("setPortStatus", PROJECT_ID, port._id, COLOR);
                 if (STATUS[COLOR] > STATUS[host.status]) {
                     console.log("Updating: " + target + " status \"" + COLOR + "\"");
-                    Meteor.call("setHostStatus", PROJECT_ID, host._id, COLOR)
+                    Meteor.call("setHostStatus", PROJECT_ID, host._id, COLOR);
                 }
                 COUNT++;
             });

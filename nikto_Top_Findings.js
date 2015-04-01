@@ -1,4 +1,4 @@
-niktoTopFindings = function () {
+var niktoTopFindings = function () {
     // Lists Nikto Top Findings results per host/vhost
     //
     // Created by: Matt Burch
@@ -16,11 +16,11 @@ niktoTopFindings = function () {
         '(.*default file found.*)',
         '(.*Server leaks.*IP.*)',
         '(.*OSVDBID:.*)',
-    ]
+    ];
 
     var ports = Ports.find({
         'project_id': PROJECT_ID
-    })
+    }).fetch();
     ports.forEach(function (port) {
         var host = Hosts.findOne({
             'project_id': PROJECT_ID,
@@ -28,7 +28,7 @@ niktoTopFindings = function () {
         });
         port.notes.forEach(function (note) {
             if (NIKTO.test(note.title)) {
-                var title = note.title.match(/\(.*\)/)
+                var title = note.title.match(/\(.*\)/);
 
                 var search = new RegExp(TOPFINDINGS.join("|") + '\\n', 'g');
                 var f = note.content.match(search);
@@ -40,10 +40,10 @@ niktoTopFindings = function () {
                 }
 
             }
-        })
-    })
+        });
+    });
     for (var key in findings) {
         console.log(key);
         console.log(findings[key].join(""));
     }
-}
+};

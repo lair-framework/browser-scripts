@@ -1,9 +1,9 @@
-var deleteHostsByStatus = function (status) {   // Deletes all hosts of a given status
-       //
-       //
-       // Usage: deleteHostsByStatus("lair-grey")
-       // Created by: Dan Kottmann
-       // Requires client-side updates: true
+var deleteHostsByStatus = function (status) {  
+    // Deletes all hosts of a given status
+    //
+    // Usage: deleteHostsByStatus("lair-grey")
+    // Created by: Dan Kottmann
+    // Requires client-side updates: true
 
       
     var PROJECT_ID = Session.get('projectId');  

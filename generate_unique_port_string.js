@@ -1,6 +1,6 @@
 var generateUniquePortString = function (protocol) {
     // Generates a comma separate unique list of open ports for the current project
-
+    //
     // Usages: generateUniquePortString()
     //         generateUniquePortString('tcp')
     // Created by: Tom Steele

@@ -15,28 +15,28 @@ var greyHostsNoPortsGreen = function () {
     }).fetch();
     if (typeof hosts === 'undefined' || hosts.length === 0) {
         console.log("No hosts found");
-    } else {
-        var c = 0;
-        hosts.forEach(function (host) {
-            var portCount = Ports.find({
-                'host_id': host._id,
-                'port': {
-                    $gt: 0
-                }
-            }).count();
-            if (portCount === 0) {
-                c++;
-                console.log("Updating: " + host.string_addr);
-                Hosts.update({
-                    '_id': host._id
-                }, {
-                    $set: {
-                        'status': 'lair-green',
-                        'last_modified_by': MODIFIED_BY
-                    }
-                });
-            }
-        });
-        console.log(c + " host(s) updated");
+        return;
     }
+    var c = 0;
+    hosts.forEach(function (host) {
+        var portCount = Ports.find({
+            'host_id': host._id,
+            'port': {
+                $gt: 0
+            }
+        }).count();
+        if (portCount === 0) {
+            c++;
+            console.log("Updating: " + host.string_addr);
+            Hosts.update({
+                '_id': host._id
+            }, {
+                $set: {
+                    'status': 'lair-green',
+                    'last_modified_by': MODIFIED_BY
+                }
+            });
+        }
+    });
+    console.log(c + " host(s) updated");
 };
