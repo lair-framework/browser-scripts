@@ -11,7 +11,7 @@ var dumpServiceNotes = function (noteRegex, ip) {
 
     var PID = Session.get('projectId');
     var re = new RegExp(noteRegex, "i");
-    ports = Ports.find({
+    var ports = Ports.find({
         'project_id': PID,
         'notes': {
             $elemMatch: {
@@ -25,8 +25,8 @@ var dumpServiceNotes = function (noteRegex, ip) {
         notes: 1,
         host_id: 1
     }).fetch();
-    hostIds = _.pluck(ports, 'host_id');
-    hosts = Hosts.find({
+    var hostIds = _.pluck(ports, 'host_id');
+    var hosts = Hosts.find({
         '_id': {
             $in: hostIds
         }
