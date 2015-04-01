@@ -12,27 +12,25 @@ var changeServicesToSpecifiedColor = function (lairService, lairColor) {
 
     if (lairColor !== 'lair-grey' && lairColor !== 'lair-blue' && lairColor !== 'lair-green' && lairColor !== 'lair-orange' && lairColor !== 'lair-red') {
         console.log("Invalid color specified");
-    } else {
-
-        var services = Ports.find({
-            'project_id': PROJECT_ID,
-            'service': lairService
-        }).fetch();
-        if (typeof services === 'undefined' || services.length === 0) {
-            console.log("No services found");
-        } else {
-            services.forEach(function (port) {
-                //console.log("Updating: " + port.service + " (" + port.protocol + ")");
-                Ports.update({
-                    '_id': port._id
-                }, {
-                    $set: {
-                        'status': lairColor,
-                        'last_modified_by': MODIFIED_BY
-                    }
-                });
-            });
-            console.log("Total of " + services.length + " service(s) updated to " + lairColor + ".");
-        }
+        return;
     }
+    var services = Ports.find({
+        'project_id': PROJECT_ID,
+        'service': lairService
+    }).fetch();
+    if (services.length < 1) {
+        console.log("No services found");
+        return;
+    }
+    services.forEach(function (port) {
+        Ports.update({
+            '_id': port._id
+        }, {
+            $set: {
+                'status': lairColor,
+                'last_modified_by': MODIFIED_BY
+            }
+        });
+    });
+    console.log("Total of " + services.length + " service(s) updated to " + lairColor + ".");
 };
