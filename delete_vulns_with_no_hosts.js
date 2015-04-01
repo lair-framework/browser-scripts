@@ -9,7 +9,6 @@ var deleteVulnsNoHosts = function () {
     // Created by: Ryan Dorey
     // Requires client-side updates: true
 
-
     var PROJECT_ID = Session.get('projectId');
     var orphanedVulns = Vulnerabilities.find({
         'project_id': PROJECT_ID,
@@ -18,13 +17,14 @@ var deleteVulnsNoHosts = function () {
         }
     }).fetch();
 
-    if (typeof orphanedVulns === 'undefined' || orphanedVulns.length === 0) {
+    if (orphanedVulns.length < 1) {
         console.log("No orphaned vulnerabilities present");
-    } else {
-        orphanedVulns.forEach(function (vulnerability) {
-            console.log("Removing: " + vulnerability.title);
-            Meteor.call('removeVulnerability', PROJECT_ID, vulnerability._id, function (err) {});
-        });
-        console.log("Total of " + orphanedVulns.length + " vuln(s) removed")
+        return;
     }
+    orphanedVulns.forEach(function (vulnerability) {
+        console.log("Removing: " + vulnerability.title);
+        Meteor.call('removeVulnerability', PROJECT_ID, vulnerability._id, function (err) {});
+    });
+    console.log("Total of " + orphanedVulns.length + " vuln(s) removed")
+
 };
