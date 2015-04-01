@@ -5,7 +5,7 @@ var niktoTopFindings = function () {
     // Usage: niktoTopFindings()
     // 
     //
-    var NIKTO = new RegExp("Nikto");
+    var NIKTO = new RegExp('Nikto');
     var findings = {};
     var PROJECT_ID = Session.get('projectId');
     var TOPFINDINGS = [
@@ -15,7 +15,7 @@ var niktoTopFindings = function () {
         '(.*Directory indexing found.*)',
         '(.*default file found.*)',
         '(.*Server leaks.*IP.*)',
-        '(.*OSVDBID:.*)',
+        '(.*OSVDBID:.*)'
     ];
 
     var ports = Ports.find({
@@ -30,13 +30,13 @@ var niktoTopFindings = function () {
             if (NIKTO.test(note.title)) {
                 var title = note.title.match(/\(.*\)/);
 
-                var search = new RegExp(TOPFINDINGS.join("|") + '\\n', 'g');
+                var search = new RegExp(TOPFINDINGS.join('|') + '\\n', 'g');
                 var f = note.content.match(search);
                 if (f) {
-                    if (!(findings[host.string_addr + " " + title])) {
-                        findings[host.string_addr + " " + title] = [];
+                    if (!(findings[host.string_addr + ' ' + title])) {
+                        findings[host.string_addr + ' ' + title] = [];
                     }
-                    findings[host.string_addr + " " + title].push(f.join(""));
+                    findings[host.string_addr + ' ' + title].push(f.join(''));
                 }
 
             }
@@ -44,6 +44,6 @@ var niktoTopFindings = function () {
     });
     for (var key in findings) {
         console.log(key);
-        console.log(findings[key].join(""));
+        console.log(findings[key].join(''));
     }
 };
