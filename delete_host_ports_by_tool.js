@@ -9,7 +9,6 @@ var deleteHostPortsByTool = function (ipAddr, lastModBy) {
     // Requires client-side updates: true
 
     var PROJECT_ID = Session.get('projectId');
-    var MODIFIED_BY = Meteor.user().emails[0].address;
 
     var host = Hosts.findOne({
         'project_id': PROJECT_ID,
