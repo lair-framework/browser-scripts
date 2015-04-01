@@ -14,7 +14,7 @@ var generateWebDiscoTargetList = function () {
         "project_id": projectId
     };
     var hosts = Hosts.find(q).fetch();
-    if (!hosts) {
+    if (hosts.length < 1) {
         console.log("No hosts found");
         return;
     }
