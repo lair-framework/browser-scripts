@@ -21,20 +21,21 @@ var addOsToHostsByOsRegex = function (os_regex, new_os, weight) {
         hosts.push(host);
     });
 
-    if (typeof hosts === 'undefined' || hosts.length === 0) {
+    if (hosts.length < 1) {
         console.log("No hosts found");
-    } else {
-        hosts.forEach(function (host) {
-            var os = host.os.fingerprint;
-            if (os.match(os_regex)) {
-                Meteor.call('addHostOs', PROJECT_ID, host._id, "Manual", new_os, weight, function (err) {
-                    if (err) {
-                        console.log("Unable to update host " + host.string_addr);
-                    } else {
-                        console.log("Updated host " + host.string_addr);
-                    }
-                });
-            }
-        });
+        return;
     }
+
+    hosts.forEach(function (host) {
+        var os = host.os.fingerprint;
+        if (os.match(os_regex)) {
+            Meteor.call('addHostOs', PROJECT_ID, host._id, "Manual", new_os, weight, function (err) {
+                if (err) {
+                    console.log("Unable to update host " + host.string_addr);
+                } else {
+                    console.log("Updated host " + host.string_addr);
+                }
+            });
+        }
+    });
 };
