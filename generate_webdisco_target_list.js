@@ -5,7 +5,7 @@ var generateWebDiscoTargetList = function () {
     // Updated by: Ryan Dorey (for use with webDisco.py) & Alex Lauerman
     // Usage: generateWebDiscoTargetList();
     // Requires client-side updates: false
-    // Note: This only matches based on a few likely conditions and won't necissarily identify 
+    // Note: This only matches based on a few likely conditions and won't necessarily identify
     // 100% of SSL services, so please keep this mind as you run this. 
     // Additionally, it could result in some false positives for non-http services that use SSL
 
