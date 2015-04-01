@@ -41,4 +41,4 @@ var getHostsByCIDR = function () {
             }
         }
     });
-}
+};
