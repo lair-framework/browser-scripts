@@ -89,11 +89,11 @@ var listUnknownOpenPorts = function (scope, outputFormat) {
         console.log(hostlist.toString());
         console.log('TCP Ports:');
         console.log(tcpportsUniq.sort(function (a, b) {
-            return a - b
+            return a - b;
         }).toString());
         console.log('UDP Ports:');
         console.log(udpportsUniq.sort(function (a, b) {
-            return a - b
+            return a - b;
         }).toString());
     }
 };
