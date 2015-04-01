@@ -12,27 +12,26 @@ var changePortsToSpecifiedColor = function (lairPort, lairColor) {
 
     if (lairColor !== 'lair-grey' && lairColor !== 'lair-blue' && lairColor !== 'lair-green' && lairColor !== 'lair-orange' && lairColor !== 'lair-red') {
         console.log("Invalid color specified");
-    } else {
-
-        var ports = Ports.find({
-            'project_id': PROJECT_ID,
-            'port': lairPort
-        }).fetch();
-        if (typeof ports === 'undefined' || ports.length === 0) {
-            console.log("No ports found");
-        } else {
-            ports.forEach(function (port) {
-                console.log("Updating: " + port.port + "/" + port.protocol);
-                Ports.update({
-                    '_id': port._id
-                }, {
-                    $set: {
-                        'status': lairColor,
-                        'last_modified_by': MODIFIED_BY
-                    }
-                });
-            });
-            console.log("Total of " + ports.length + " port(s) updated");
-        }
+        return;
     }
+    var ports = Ports.find({
+        'project_id': PROJECT_ID,
+        'port': lairPort
+    }).fetch();
+    if (ports.length < 1) {
+        console.log("No ports found");
+        return;
+    }
+    ports.forEach(function (port) {
+        console.log("Updating: " + port.port + "/" + port.protocol);
+        Ports.update({
+            '_id': port._id
+        }, {
+            $set: {
+                'status': lairColor,
+                'last_modified_by': MODIFIED_BY
+            }
+        });
+    });
+    console.log("Total of " + ports.length + " port(s) updated");
 };
