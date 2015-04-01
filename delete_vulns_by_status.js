@@ -11,7 +11,7 @@ var deleteVulnerabilitiesByStatus = function (status) {
         'project_id': PROJECT_ID,
         'status': status
     }).fetch();
-    if (typeof vulnerabilities === 'undefined' || vulnerabilities.length === 0) {
+    if (vulnerabilities.length < 1) {
         console.log("No matching vulnerabilities found");
         return;
     }
