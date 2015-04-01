@@ -9,16 +9,16 @@ var filterHostsNoPorts = function () {
     var PROJECT_ID = Session.get('projectId');
     var portarray = [];
     var delarray = [];
-    var hostid;
 
     var hosts = Hosts.find({
-        "project_id": PROJECT_ID
+        'project_id': PROJECT_ID
     }).fetch();
+
     hosts.forEach(function (host) {
-        hostid = host._id;
-        ports = Ports.find({
-            "project_id": PROJECT_ID,
-            "host_id": host._id
+        var hostid = host._id;
+        var ports = Ports.find({
+            'project_id': PROJECT_ID,
+            'host_id': host._id
         }).fetch();
         ports.forEach(function (port) {
             //check if port is 0 and that notes are empty - add to port array
@@ -29,21 +29,19 @@ var filterHostsNoPorts = function () {
                 portarray.push(port.port);
             }
         });
-        var len = portarray.length;
         //check last index for 0 element - add host to delete array
         if ((portarray[portarray.length - 1] <= 0) || (portarray.length <= 0)) {
             delarray.push(hostid);
         }
         portarray.length = 0;
-        hostid = undefined;
     });
-    var length = delarray.length;
-    for (var x = 0; x < length; x++) {
-        console.log("Removing HostID: " + delarray[x]);
+
+    for (var x = 0; x < delarray.length; x++) {
+        console.log('Removing HostID: ' + delarray[x]);
         Meteor.call('removeHost', PROJECT_ID, delarray[x], function (err) {
             if (!err) {
                 Meteor.call('removeHostFromVulnerabilities', PROJECT_ID, delarray[x]);
             }
         });
-    };
+    }
 };

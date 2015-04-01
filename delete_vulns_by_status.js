@@ -2,7 +2,7 @@ var deleteVulnerabilitiesByStatus = function (status) {
     // Deletes all vulnerabilities of a given status
     // Based on deleteHostsByStatus Script Created by Dan Kottmann
     //
-    // Usage: deleteVulnerabilitiesByStatus("lair-grey")
+    // Usage: deleteVulnerabilitiesByStatus('lair-grey')
     // Created by: Isaiah Sarju
     // Requires client-side updates: true
 
@@ -12,12 +12,12 @@ var deleteVulnerabilitiesByStatus = function (status) {
         'status': status
     }).fetch();
     if (vulnerabilities.length < 1) {
-        console.log("No matching vulnerabilities found");
+        console.log('No matching vulnerabilities found');
         return;
     }
     vulnerabilities.forEach(function (vulnerability) {
-        console.log("Removing " + vulnerability.title);
+        console.log('Removing ' + vulnerability.title);
         Meteor.call('removeVulnerability', PROJECT_ID, vulnerability._id);
     });
-    console.log("Total of " + vulnerabilities.length + " vulnerability(s) removed.");
+    console.log('Total of ' + vulnerabilities.length + ' vulnerability(s) removed.');
 };

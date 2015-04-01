@@ -3,7 +3,7 @@ var addOsToHostsByOsRegex = function (os_regex, new_os, weight) {
     // and adds a new Operating System value if the host's primary
     // OS matches the provided regex. Assigns the provided weight as well.
     //
-    // Usage: addOsToHostsByOsRegex(/.*Linux.*/, "Linux", 100);
+    // Usage: addOsToHostsByOsRegex(/.*Linux.*/, 'Linux', 100);
     // Created by: Dan Kottmann
     // Requires client-side updates: false
 
@@ -22,18 +22,18 @@ var addOsToHostsByOsRegex = function (os_regex, new_os, weight) {
     });
 
     if (hosts.length < 1) {
-        console.log("No hosts found");
+        console.log('No hosts found');
         return;
     }
 
     hosts.forEach(function (host) {
         var os = host.os.fingerprint;
         if (os.match(os_regex)) {
-            Meteor.call('addHostOs', PROJECT_ID, host._id, "Manual", new_os, weight, function (err) {
+            Meteor.call('addHostOs', PROJECT_ID, host._id, 'Manual', new_os, weight, function (err) {
                 if (err) {
-                    console.log("Unable to update host " + host.string_addr);
+                    console.log('Unable to update host ' + host.string_addr);
                 } else {
-                    console.log("Updated host " + host.string_addr);
+                    console.log('Updated host ' + host.string_addr);
                 }
             });
         }

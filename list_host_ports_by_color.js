@@ -9,10 +9,10 @@ var listHostPortsByColor = function (color) {
     var PROJECT_ID = Session.get('projectId');
 
     if (STATUS_MAP.indexOf(COLOR) === -1) {
-        console.log("Lair Supported colors: " + STATUS_MAP);
+        console.log('Lair Supported colors: ' + STATUS_MAP);
         throw {
-            name: "Wrong Color",
-            message: "Provided COLOR: \"" + COLOR + "\" is not Lair compliant"
+            name: 'Wrong Color',
+            message: 'Provided COLOR: \"' + COLOR + '\" is not Lair compliant'
         };
     }
 
@@ -25,6 +25,6 @@ var listHostPortsByColor = function (color) {
             'project_id': PROJECT_ID,
             '_id': port.host_id
         });
-        console.log(host.string_addr + ":" + port.port + "/" + port.protocol);
+        console.log(host.string_addr + ':' + port.port + '/' + port.protocol);
     });
 };

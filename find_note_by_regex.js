@@ -7,15 +7,15 @@ var findNoteByRegex = function (noteRegex, noteType) {
     //    service
     //    vulnerability - searches the evidence field and notes
     //
-    // Usage: findNote(".*Linux.*", "all");
+    // Usage: findNote('.*Linux.*', 'all');
     // Created by: Joey Belans
     // Requires client-side updates: false
 
     var PROJECT_ID = Session.get('projectId');
 
-    var noteRe = new RegExp(noteRegex, "i");
+    var noteRe = new RegExp(noteRegex, 'i');
     if (noteType === 'project' || noteType === 'all') {
-        console.log("Project Notes");
+        console.log('Project Notes');
         var curProj = Projects.findOne({
             '_id': PROJECT_ID
         }, {
@@ -23,12 +23,12 @@ var findNoteByRegex = function (noteRegex, noteType) {
         });
         curProj.notes.forEach(function (note) {
             if (noteRe.test(note.title) || noteRe.test(note.content)) {
-                console.log("\t" + note.title);
+                console.log('\t' + note.title);
             }
         });
     }
     if (noteType === 'host' || noteType === 'all') {
-        console.log("Host Notes");
+        console.log('Host Notes');
         Hosts.find({
             'project_id': PROJECT_ID,
             $or: [{
@@ -55,13 +55,13 @@ var findNoteByRegex = function (noteRegex, noteType) {
         }).fetch().forEach(function (host) {
             host.notes.forEach(function (note) {
                 if (noteRe.test(note.title) || noteRe.test(note.content)) {
-                    console.log("\t" + host.string_addr + " -> " + note.title);
+                    console.log('\t' + host.string_addr + ' -> ' + note.title);
                 }
             });
         });
     }
     if (noteType === 'service' || noteType === 'all') {
-        console.log("Service Notes");
+        console.log('Service Notes');
         Ports.find({
             'project_id': PROJECT_ID,
             $or: [{
@@ -92,13 +92,13 @@ var findNoteByRegex = function (noteRegex, noteType) {
                         'project_id': PROJECT_ID,
                         '_id': port.host_id
                     });
-                    console.log("\t" + portHost.string_addr + " -> " + port.port.toString() + " -> " + note.title);
+                    console.log('\t' + portHost.string_addr + ' -> ' + port.port.toString() + ' -> ' + note.title);
                 }
             });
         });
     }
     if (noteType === 'vulnerability' || noteType === 'all') {
-        console.log("Vulnerability Notes");
+        console.log('Vulnerability Notes');
         Vulnerabilities.find({
             'project_id': PROJECT_ID,
             $or: [{
@@ -129,11 +129,11 @@ var findNoteByRegex = function (noteRegex, noteType) {
             notes: 1
         }).fetch().forEach(function (vuln) {
             if (noteRe.test(vuln.evidence)) {
-                console.log("\t" + vuln.title + " -> Evidence Field");
+                console.log('\t' + vuln.title + ' -> Evidence Field');
             }
             vuln.notes.forEach(function (note) {
                 if (noteRe.test(note.title) || noteRe.test(note.content)) {
-                    console.log("\t" + vuln.title + " -> " + note.title);
+                    console.log('\t' + vuln.title + ' -> ' + note.title);
                 }
             });
         });

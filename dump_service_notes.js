@@ -2,15 +2,15 @@ var dumpServiceNotes = function (noteRegex, ip) {
     // Dump the contents of service notes matching a specific regex (matches against note 'title')
     // By supplying an empty string for the 'ip' you can dump all notes.
     // Examples:
-    //   dumpServiceNotes("^SSL Self-Signed", "")
-    //   dumpServiceNotes("Software Enumeration", "192.168.1.1")
+    //   dumpServiceNotes('^SSL Self-Signed', '')
+    //   dumpServiceNotes('Software Enumeration', '192.168.1.1')
     //
     // Usage: dumpServiceNotes(regex, ip);
     // Created by: Dan Kottmann
     // Requires client-side updates: false
 
     var PID = Session.get('projectId');
-    var re = new RegExp(noteRegex, "i");
+    var re = new RegExp(noteRegex, 'i');
     var ports = Ports.find({
         'project_id': PID,
         'notes': {
@@ -37,7 +37,7 @@ var dumpServiceNotes = function (noteRegex, ip) {
         string_addr: 1
     }).fetch();
     hosts.forEach(function (host) {
-        if (ip !== "" && ip !== host.string_addr) {
+        if (ip !== '' && ip !== host.string_addr) {
             return;
         }
         ports = Ports.find({
@@ -53,7 +53,7 @@ var dumpServiceNotes = function (noteRegex, ip) {
         ports.forEach(function (port) {
             port.notes.forEach(function (note) {
                 if (re.test(note.title)) {
-                    console.log(host.string_addr + ":" + port.port + "/" + port.protocol + " - " + note.title + "\n" + note.content);
+                    console.log(host.string_addr + ':' + port.port + '/' + port.protocol + ' - ' + note.title + '\n' + note.content);
                 }
             });
         });

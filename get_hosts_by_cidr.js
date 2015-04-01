@@ -2,7 +2,7 @@ var getHostsByCIDR = function () {
     // Generate a list of hostname[string_addr] targets from supplied CIDR range
     //
     // Created by: Matt Burch
-    // Usage: getHostsByCIDR("x.x.x.x/x") or getHostsByCIDR("x.x.x.x/x","y.y.y.y/y");
+    // Usage: getHostsByCIDR('x.x.x.x/x') or getHostsByCIDR('x.x.x.x/x','y.y.y.y/y');
     //
 
     var hostTargets = [];
@@ -26,13 +26,13 @@ var getHostsByCIDR = function () {
     }
 
     hosts.forEach(function (host) {
-        var ip = host.string_addr.split(".");
+        var ip = host.string_addr.split('.');
         hostip[dec2Bin(ip, 32)] = host.string_addr;
     });
 
     nets.forEach(function (cidr) {
-        cidr = cidr.split("/");
-        var net = cidr[0].split(".");
+        cidr = cidr.split('/');
+        var net = cidr[0].split('.');
         var netbin = dec2Bin(net, cidr[1]);
 
         for (var key in hostip) {

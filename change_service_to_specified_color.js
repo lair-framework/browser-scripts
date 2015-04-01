@@ -3,7 +3,7 @@ var changeServicesToSpecifiedColor = function (lairService, lairColor) {
     //
     // Created by: Dan Kottmann
     // Updated by: Ryan Dorey
-    // Usage: changeServicesToSpecifiedColor("dce-rpc", "lair-orange");
+    // Usage: changeServicesToSpecifiedColor('dce-rpc', 'lair-orange');
     // Colors available: lair-grey, lair-blue, lair-green, lair-orange, lair-red
     // Requires client-side updates: true
 
@@ -11,7 +11,7 @@ var changeServicesToSpecifiedColor = function (lairService, lairColor) {
     var MODIFIED_BY = Meteor.user().emails[0].address;
 
     if (lairColor !== 'lair-grey' && lairColor !== 'lair-blue' && lairColor !== 'lair-green' && lairColor !== 'lair-orange' && lairColor !== 'lair-red') {
-        console.log("Invalid color specified");
+        console.log('Invalid color specified');
         return;
     }
     var services = Ports.find({
@@ -19,7 +19,7 @@ var changeServicesToSpecifiedColor = function (lairService, lairColor) {
         'service': lairService
     }).fetch();
     if (services.length < 1) {
-        console.log("No services found");
+        console.log('No services found');
         return;
     }
     services.forEach(function (port) {
@@ -32,5 +32,5 @@ var changeServicesToSpecifiedColor = function (lairService, lairColor) {
             }
         });
     });
-    console.log("Total of " + services.length + " service(s) updated to " + lairColor + ".");
+    console.log('Total of ' + services.length + ' service(s) updated to ' + lairColor + '.');
 };

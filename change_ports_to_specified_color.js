@@ -3,7 +3,7 @@ var changePortsToSpecifiedColor = function (lairPort, lairColor) {
     //
     // Created by: Dan Kottmann
     // Updated by: Ryan Dorey
-    // Usage: changePortsToSpecifiedColor(80, "lair-orange");
+    // Usage: changePortsToSpecifiedColor(80, 'lair-orange');
     // Colors available: lair-grey, lair-blue, lair-green, lair-orange, lair-red
     // Requires client-side updates: true
 
@@ -11,7 +11,7 @@ var changePortsToSpecifiedColor = function (lairPort, lairColor) {
     var MODIFIED_BY = Meteor.user().emails[0].address;
 
     if (lairColor !== 'lair-grey' && lairColor !== 'lair-blue' && lairColor !== 'lair-green' && lairColor !== 'lair-orange' && lairColor !== 'lair-red') {
-        console.log("Invalid color specified");
+        console.log('Invalid color specified');
         return;
     }
     var ports = Ports.find({
@@ -19,11 +19,11 @@ var changePortsToSpecifiedColor = function (lairPort, lairColor) {
         'port': lairPort
     }).fetch();
     if (ports.length < 1) {
-        console.log("No ports found");
+        console.log('No ports found');
         return;
     }
     ports.forEach(function (port) {
-        console.log("Updating: " + port.port + "/" + port.protocol);
+        console.log('Updating: ' + port.port + '/' + port.protocol);
         Ports.update({
             '_id': port._id
         }, {
@@ -33,5 +33,5 @@ var changePortsToSpecifiedColor = function (lairPort, lairColor) {
             }
         });
     });
-    console.log("Total of " + ports.length + " port(s) updated");
+    console.log('Total of ' + ports.length + ' port(s) updated');
 };

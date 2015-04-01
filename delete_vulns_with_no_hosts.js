@@ -18,13 +18,13 @@ var deleteVulnsNoHosts = function () {
     }).fetch();
 
     if (orphanedVulns.length < 1) {
-        console.log("No orphaned vulnerabilities present");
+        console.log('No orphaned vulnerabilities present');
         return;
     }
     orphanedVulns.forEach(function (vulnerability) {
-        console.log("Removing: " + vulnerability.title);
+        console.log('Removing: ' + vulnerability.title);
         Meteor.call('removeVulnerability', PROJECT_ID, vulnerability._id, function (err) {});
     });
-    console.log("Total of " + orphanedVulns.length + " vuln(s) removed")
+    console.log('Total of ' + orphanedVulns.length + ' vuln(s) removed')
 
 };

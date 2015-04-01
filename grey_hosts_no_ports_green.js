@@ -14,7 +14,7 @@ var greyHostsNoPortsGreen = function () {
         'status': 'lair-grey'
     }).fetch();
     if (typeof hosts === 'undefined' || hosts.length === 0) {
-        console.log("No hosts found");
+        console.log('No hosts found');
         return;
     }
     var c = 0;
@@ -27,7 +27,7 @@ var greyHostsNoPortsGreen = function () {
         }).count();
         if (portCount === 0) {
             c++;
-            console.log("Updating: " + host.string_addr);
+            console.log('Updating: ' + host.string_addr);
             Hosts.update({
                 '_id': host._id
             }, {
@@ -38,5 +38,5 @@ var greyHostsNoPortsGreen = function () {
             });
         }
     });
-    console.log(c + " host(s) updated");
+    console.log(c + ' host(s) updated');
 };

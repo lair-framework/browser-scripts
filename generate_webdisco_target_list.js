@@ -11,11 +11,11 @@ var generateWebDiscoTargetList = function () {
 
     var projectId = Session.get('projectId');
     var q = {
-        "project_id": projectId
+        'project_id': projectId
     };
     var hosts = Hosts.find(q).fetch();
     if (hosts.length < 1) {
-        console.log("No hosts found");
+        console.log('No hosts found');
         return;
     }
     var c = 0;
@@ -23,12 +23,12 @@ var generateWebDiscoTargetList = function () {
         var names = host.hostnames;
         var hostId = host._id;
         var query = {
-            "project_id": projectId,
-            "host_id": hostId
+            'project_id': projectId,
+            'host_id': hostId
         };
         query.service = {
-            "$regex": 'web|www|ssl|http|https',
-            "$options": "i"
+            '$regex': 'web|www|ssl|http|https',
+            '$options': 'i'
         };
         var ports = Ports.find(query).fetch();
         ports.forEach(function (port) {
@@ -42,12 +42,12 @@ var generateWebDiscoTargetList = function () {
                 }
             });
             c++;
-            console.log(protocol + ',' + host.string_addr + ',' + port.port + ",");
+            console.log(protocol + ',' + host.string_addr + ',' + port.port + ',');
             names.forEach(function (n) {
                 c++;
                 console.log(protocol + ',' + host.string_addr + ',' + port.port + ',' + n);
             });
         });
     });
-    console.log(c + " URL(s) generated");
+    console.log(c + ' URL(s) generated');
 };

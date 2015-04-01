@@ -8,7 +8,7 @@ var generateUniquePortString = function (protocol) {
 
     var PROJECT_ID = Session.get('projectId');
     var query = {
-        "project_id": PROJECT_ID
+        'project_id': PROJECT_ID
     };
     if (typeof protocol !== 'undefined') {
         query.protocol = protocol;

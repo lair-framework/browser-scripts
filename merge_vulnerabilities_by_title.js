@@ -2,7 +2,7 @@ var mergeVulnerabilitiesByTitle = function (vulnerabilityRegex, newTitle, cvss) 
     // Merges all vulnerabilities identified by a regular expression into a new or existing vulnerability
     // provided by newTitle.
     //
-    // Usage: mergeVulnerabilitiesByTitle(/^VMSA.*/, "Multiple VMWare Vulneraiblities", "10.0")
+    // Usage: mergeVulnerabilitiesByTitle(/^VMSA.*/, 'Multiple VMWare Vulneraiblities', '10.0')
     // Created by: Tom Steele
     // Requires client-side updates: false
     //
@@ -21,11 +21,11 @@ var mergeVulnerabilitiesByTitle = function (vulnerabilityRegex, newTitle, cvss) 
   
        var projectId = Session.get('projectId');
   
-       var vulnerabilities = Vulnerabilities.find({"project_id": projectId, "title": {"$regex": testRegex}}).fetch();
+       var vulnerabilities = Vulnerabilities.find({'project_id': projectId, 'title': {'$regex': testRegex}}).fetch();
        vulnerabilities.forEach(function(vulnerability) {
-         console.log("Title: " + vulnerability.title + " - CVSS: " + vulnerability.cvss);
+         console.log('Title: ' + vulnerability.title + ' - CVSS: ' + vulnerability.cvss);
        });
-       console.log("Total found: " + vulnerabilities.length);
+       console.log('Total found: ' + vulnerabilities.length);
      }
   
     -------------------------------------------------------------------------------------------------*/
@@ -44,9 +44,9 @@ var mergeVulnerabilitiesByTitle = function (vulnerabilityRegex, newTitle, cvss) 
 
     var projectId = Session.get('projectId');
     var vulnerabilities = Vulnerabilities.find({
-        "project_id": projectId,
-        "title": {
-            "$regex": vulnerabilityRegex
+        'project_id': projectId,
+        'title': {
+            '$regex': vulnerabilityRegex
         }
     }).fetch();
     if (vulnerabilities.length < 1) {
@@ -55,8 +55,8 @@ var mergeVulnerabilitiesByTitle = function (vulnerabilityRegex, newTitle, cvss) 
     // If the vulnerability given in newTitle already exists, then we push it onto the regex list so we can combine them
     // Remove the existing vulnerability first
     var existingVenerability = Vulnerabilities.findOne({
-        "project_id": projectId,
-        "title": newTitle
+        'project_id': projectId,
+        'title': newTitle
     });
     if (typeof existingVenerability !== 'undefined') {
         vulnerabilities.push(existingVenerability);
@@ -72,9 +72,9 @@ var mergeVulnerabilitiesByTitle = function (vulnerabilityRegex, newTitle, cvss) 
     var hostList = [];
     // Loop over each vulnerability and combine the data
     vulnerabilities.forEach(function (vulnerability) {
-        newDescription += "\n\n" + "From " + vulnerability.title + "\n" + vulnerability.description;
-        newSolution += "\n\n" + "From " + vulnerability.title + "\n" + vulnerability.solution;
-        newEvidence += "\n\n" + "From " + vulnerability.title + "\n" + vulnerability.evidence;
+        newDescription += '\n\n' + 'From ' + vulnerability.title + '\n' + vulnerability.description;
+        newSolution += '\n\n' + 'From ' + vulnerability.title + '\n' + vulnerability.solution;
+        newEvidence += '\n\n' + 'From ' + vulnerability.title + '\n' + vulnerability.evidence;
         newNotes = newNotes.concat(vulnerability.notes);
         cves = cves.concat(vulnerability.cves);
         hostList = hostList.concat(vulnerability.hosts);

@@ -9,12 +9,12 @@ var iisOsProfiler = function () {
 
     var PROJECT_ID = Session.get('projectId');
     var WEIGHT = 90;
-    var TOOL = "IIS OS Profiler";
+    var TOOL = 'IIS OS Profiler';
     var ports = Ports.find({
-        "project_id": PROJECT_ID,
-        "product": {
-            "$regex": /IIS\s(httpd\s)?\d+\.\d+/,
-            "$options": "i"
+        'project_id': PROJECT_ID,
+        'product': {
+            '$regex': /IIS\s(httpd\s)?\d+\.\d+/,
+            '$options': 'i'
         }
     }).fetch();
     ports.forEach(function (port) {
@@ -31,20 +31,20 @@ var iisOsProfiler = function () {
         os.tool = TOOL;
         os.weight = WEIGHT;
         if (version < 6) {
-            os.fingerprint = "Microsoft Windows Server 2000";
+            os.fingerprint = 'Microsoft Windows Server 2000';
         } else if (version < 7) {
-            os.fingerprint = "Microsoft Windows Server 2003";
+            os.fingerprint = 'Microsoft Windows Server 2003';
         } else if (version < 8) {
-            os.fingerprint = "Microsoft Windows Server 2008";
+            os.fingerprint = 'Microsoft Windows Server 2008';
         } else if (version < 9) {
-            os.fingerprint = "Microsoft Windows Server 2012";
+            os.fingerprint = 'Microsoft Windows Server 2012';
         }
-        if (os.fingerprint !== "") {
+        if (os.fingerprint !== '') {
             Meteor.call('addHostOs', PROJECT_ID, port.host_id, os.tool, os.fingerprint, os.weight, function (err) {
                 if (err) {
-                    console.log("Error generating OS for", port.host_id, err);
+                    console.log('Error generating OS for', port.host_id, err);
                 } else {
-                    console.log("Created new OS", os.fingerprint, "for", port.host_id);
+                    console.log('Created new OS', os.fingerprint, 'for', port.host_id);
                 }
             });
         }

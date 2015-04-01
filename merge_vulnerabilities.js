@@ -3,16 +3,16 @@ var mergeVulnerabilities = function (titleRegex, minCVSS, maxCVSS, hostsRegex, n
     // provided by newTitle.
     //
     // Usage:
-    // mergeVulnerabilities(/Apache/i, 7, 10, /.*/, "Apache 2.x servers are vulnerable to multiple high risk issues", "max", false);
-    // mergeVulnerabilities(/Apache/i, 7, 10, /.*/, "Apache 2.x servers are vulnerable to multiple high risk issues", "max", true);
+    // mergeVulnerabilities(/Apache/i, 7, 10, /.*/, 'Apache 2.x servers are vulnerable to multiple high risk issues', 'max', false);
+    // mergeVulnerabilities(/Apache/i, 7, 10, /.*/, 'Apache 2.x servers are vulnerable to multiple high risk issues', 'max', true);
     //
     // titleRegex - regex to search titles
     // minCVSS - minimum CVSS score to include
     // maxCVSS - maximum CVSS score to include
     // hostsRegex - host IPs to include in filter
     // newTitle - title of the new vulnerability
-    // newCVSS - new CVSS score, or choose "max" to pick the highest CVSS score of that group
-    // update - The update parameter determines whether it's a "dry run" with output, or an actual merge. update = true will delete old entries
+    // newCVSS - new CVSS score, or choose 'max' to pick the highest CVSS score of that group
+    // update - The update parameter determines whether it's a 'dry run' with output, or an actual merge. update = true will delete old entries
     //
     // Created by: Alex Lauerman and Tom Steele
     // Requires client-side updates: false
@@ -30,16 +30,16 @@ var mergeVulnerabilities = function (titleRegex, minCVSS, maxCVSS, hostsRegex, n
 
     var projectId = Session.get('projectId');
     var vulnerabilities = Vulnerabilities.find({
-        "project_id": projectId,
-        "title": {
-            "$regex": titleRegex
+        'project_id': projectId,
+        'title': {
+            '$regex': titleRegex
         },
-        "cvss": {
-            "$gte": minCVSS,
-            "$lte": maxCVSS
+        'cvss': {
+            '$gte': minCVSS,
+            '$lte': maxCVSS
         },
-        "hosts.string_addr": {
-            "$regex": hostsRegex
+        'hosts.string_addr': {
+            '$regex': hostsRegex
         }
     }).fetch();
     if (vulnerabilities.length < 1) {
@@ -53,23 +53,23 @@ var mergeVulnerabilities = function (titleRegex, minCVSS, maxCVSS, hostsRegex, n
     // vulnerabilities.sort(sortByTitle);
     vulnerabilities.sort(sortByCVSS);
     vulnerabilities.forEach(function (vulnerability) {
-        console.log("CVSS: " + vulnerability.cvss + " - Hosts: " + vulnerability.hosts.length + " - Title: " + vulnerability.title);
+        console.log('CVSS: ' + vulnerability.cvss + ' - Hosts: ' + vulnerability.hosts.length + ' - Title: ' + vulnerability.title);
         if (vulnerability.cvss > highestCVSS)
             highestCVSS = vulnerability.cvss;
     });
 
-    console.log("Total found: " + vulnerabilities.length + " Highest CVSS: " + highestCVSS);
+    console.log('Total found: ' + vulnerabilities.length + ' Highest CVSS: ' + highestCVSS);
 
     if (update) {
-        if (newCVSS == "max") {
+        if (newCVSS == 'max') {
             newCVSS = highestCVSS;
         }
 
         // If the vulnerability given in newTitle already exists, then we push it onto the regex list so we can combine them
         // Remove the existing vulnerability first
         var existingVenerability = Vulnerabilities.findOne({
-            "project_id": projectId,
-            "title": newTitle
+            'project_id': projectId,
+            'title': newTitle
         });
         if (typeof existingVenerability !== 'undefined') {
             vulnerabilities.push(existingVenerability);
@@ -85,9 +85,9 @@ var mergeVulnerabilities = function (titleRegex, minCVSS, maxCVSS, hostsRegex, n
         var hostList = [];
         // Loop over each vulnerability and combine the data
         vulnerabilities.forEach(function (vulnerability) {
-            newDescription = "";
-            newSolution = "";
-            newEvidence = "";
+            newDescription = '';
+            newSolution = '';
+            newEvidence = '';
             newNotes = newNotes.concat(vulnerability.notes);
             cves = cves.concat(vulnerability.cves);
             hostList = hostList.concat(vulnerability.hosts);
