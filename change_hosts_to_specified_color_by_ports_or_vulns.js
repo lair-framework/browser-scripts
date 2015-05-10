@@ -21,9 +21,10 @@ var changeHostsToSpecifiedColorByPortsOrVulns = function (portsOrVulns, statusOp
     // Lair Color Options (lairColor): lair-grey, lair-blue, lair-green, lair-orange, lair-red
     //
     // Usage
-        // changeHostsToSpecifiedColorByPortsOrVulns('doesnmatter', all', 'lair-green'); Change all hosts to lair-green
+        // changeHostsToSpecifiedColorByPortsOrVulns('doesnmatter', 'all', 'lair-green'); Change all hosts to lair-green
         // changeHostsToSpecifiedColorByPortsOrVulns('ports', 'none', 'lair-green'); If host has no ports change to lair-green
         // changeHostsToSpecifiedColorByPortsOrVulns('vulns', 'lair-orange', 'lair-red'); If all vulns are lair-orange change host to lair-red
+        // changeHostsToSpecifiedColorByPortsOrVulns('vulns', 'same', 'lair-blue'); If host has same colored vulns change host to lair-blue
         // changeHostsToSpecifiedColorByPortsOrVulns('ports', 'diff', 'lair-grey'); If host has different colored ports change host to lair-grey
 
     var PROJECT_ID = Session.get('projectId');
