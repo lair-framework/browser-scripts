@@ -1,7 +1,7 @@
 var changeServicesRegexToSpecifiedColor = function (lairServiceRegex, lairColor) {
     // Changes the status of a given service to the specified color
     //
-    // Updaterd to include Regex by Isaiah Sarju
+    // Updated to include Regex by Isaiah Sarju
     // Created by: Dan Kottmann
     // Updated by: Ryan Dorey
     // Usage: changeServicesRegexToSpecifiedColor(/*.sql.*/, 'lair-blue');
