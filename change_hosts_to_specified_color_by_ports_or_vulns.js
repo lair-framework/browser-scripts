@@ -1,8 +1,8 @@
 var changeHostsToSpecifiedColorByPortsOrVulns = function (portsOrVulns, statusOption, lairColor){
-    // Changes host color based ports|vulns of the host
+    // Changes host color based on ports|vulns of the host
     //
     // This is good for editing large chucks of hosts based on port or vuln color.
-    // Example: You've marked a bunch of ports green and want to change all hosts, whose ports are all
+    // Example: You've marked a bunch of ports green and want to change all hosts, whose ports are now all
     // green, to green. You run: changeHostsToSpecifiedColorByPortsOrVulns('ports', 'lair-green', 'lair-green')
     //
     // Created by Isaiah Sarju
