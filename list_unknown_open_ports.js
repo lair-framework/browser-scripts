@@ -11,6 +11,8 @@ var listUnknownOpenPorts = function (scope, outputFormat) {
     //    outputFormat:
     //      list (list of hosts followed by list of all unknown ports)
     //      nmap (individual host nmap cmdline with per-host ports)
+    //      hostAndPort (list host:port combinations. WARNING: A long list will likely be output.
+    //                   Recommend doing select all + copy or saving log to file. See http://goo.gl/C6tmgw)
     //
     // Created by: Alain Iamburg
 
@@ -72,6 +74,20 @@ var listUnknownOpenPorts = function (scope, outputFormat) {
             }
             tcpports = [];
             udpports = [];
+        }
+
+        // Output host:port
+        if (outputFormat === 'hostAndPort') {
+            if (tcpports.length > 0) {
+                tcpports.forEach(function (tcpport){
+                    console.log(host.string_addr + ':' + tcpport.toString());
+                });
+            }
+            if (udpports.length > 0) {
+                udpports.forEach(function (udpport){
+                    console.log(host.string_addr + ':' + udpport.toString());
+                });
+            }
         }
 
     });
