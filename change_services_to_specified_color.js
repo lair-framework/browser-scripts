@@ -18,14 +18,14 @@ function changeServicesToSpecifiedColor (lairPort, lairColor) {
   }
   var services = Services.find({
     'projectId': projectId,
-    'port': lairPort
+    'service': lairPort
   }).fetch()
   if (services.length < 1) {
     console.log('No services found')
     return
   }
   services.forEach(function (service) {
-    console.log('Updating: ' + service.port + '/' + service.protocol)
+    console.log('Updating: ' + service.service + '/' + service.protocol)
     Services.update({
       '_id': service._id
     }, {

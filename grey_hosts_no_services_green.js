@@ -1,16 +1,19 @@
-var greyHostsNoPortsGreen = function () {
+/* eslint-disable no-unused-vars */
+/* globals Session Hosts Meteor Services */
+
+function greyHostsNoServicesGreen () {
   // Loops through each host from the selected project
-  // and changes the status of any gray hosts with no open ports
+  // and changes the status of any gray hosts with no open services
   // to green
-  // 
-  // Usage: greyHostsNoPortsGreen()
+  //
+  // Usage: greyHostsNoServicesGreen()
   // Created by: Dan Kottmann
   // Requires client-side updates: true
 
-  var PROJECT_ID = Session.get('projectId')
-  var MODIFIED_BY = Meteor.user().emails[0].address
+  var projectId = Session.get('projectId')
+  var modifiedBy = Meteor.user().emails[0].address
   var hosts = Hosts.find({
-    'project_id': PROJECT_ID,
+    'projectId': projectId,
     'status': 'lair-grey'
   }).fetch()
   if (typeof hosts === 'undefined' || hosts.length === 0) {
@@ -19,21 +22,21 @@ var greyHostsNoPortsGreen = function () {
   }
   var c = 0
   hosts.forEach(function (host) {
-    var portCount = Ports.find({
-      'host_id': host._id,
+    var serviceCount = Services.find({
+      'hostId': host._id,
       'port': {
         $gt: 0
       }
     }).count()
-    if (portCount === 0) {
+    if (serviceCount === 0) {
       c++
-      console.log('Updating: ' + host.string_addr)
+      console.log('Updating: ' + host.ipv4)
       Hosts.update({
         '_id': host._id
       }, {
         $set: {
           'status': 'lair-green',
-          'last_modified_by': MODIFIED_BY
+          'last_modified_by': modifiedBy
         }
       })
     }

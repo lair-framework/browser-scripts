@@ -27,7 +27,7 @@ function setHostOsByOsRegex (osRegex, newOs, weight) {
   hosts.forEach(function (host) {
     Meteor.call('setOs', projectId, host._id, 'Manual', newOs, weight, function (err) {
       if (err) {
-        console.log('Unable to update host ' + host.string_addr)
+        console.log('Unable to update host ' + host.ipv4)
         return
       }
       console.log('Updated host ' + host.ipv4)

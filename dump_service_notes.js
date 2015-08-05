@@ -1,4 +1,7 @@
-var dumpServiceNotes = function (noteRegex, ip) {
+/* eslint-disable no-unused-vars */
+/* globals Session Services _ Hosts Meteor */
+
+function dumpServiceNotes (noteRegex, ip) {
   // Dump the contents of service notes matching a specific regex (matches against note 'title')
   // By supplying an empty string for the 'ip' you can dump all notes.
   // Examples:
@@ -9,10 +12,10 @@ var dumpServiceNotes = function (noteRegex, ip) {
   // Created by: Dan Kottmann
   // Requires client-side updates: false
 
-  var PID = Session.get('projectId')
+  var projectId = Session.get('projectId')
   var re = new RegExp(noteRegex, 'i')
-  var ports = Ports.find({
-    'project_id': PID,
+  var services = Services.find({
+    'projectId': projectId,
     'notes': {
       $elemMatch: {
         'title': {
@@ -23,37 +26,37 @@ var dumpServiceNotes = function (noteRegex, ip) {
     }
   }, {
     notes: 1,
-    host_id: 1
+    hostId: 1
   }).fetch()
-  var hostIds = _.pluck(ports, 'host_id')
+  var hostIds = _.pluck(services, 'hostId')
   var hosts = Hosts.find({
     '_id': {
       $in: hostIds
     }
   }, {
     sort: {
-      long_addr: 1
+      longIpv4Addr: 1
     },
-    string_addr: 1
+    ipv4: 1
   }).fetch()
   hosts.forEach(function (host) {
-    if (ip !== '' && ip !== host.string_addr) {
+    if (ip !== '' && ip !== host.ipv4) {
       return
     }
-    ports = Ports.find({
-      'host_id': host._id
+    services = Services.find({
+      'hostId': host._id
     }, {
       sort: {
-        port: 1
+        service: 1
       },
       notes: 1,
-      port: 1,
+      service: 1,
       protocol: 1
     }).fetch()
-    ports.forEach(function (port) {
-      port.notes.forEach(function (note) {
+    services.forEach(function (service) {
+      service.notes.forEach(function (note) {
         if (re.test(note.title)) {
-          console.log(host.string_addr + ':' + port.port + '/' + port.protocol + ' - ' + note.title + '\n' + note.content)
+          console.log(host.ipv4 + ':' + service.port + '/' + service.protocol + ' - ' + note.title + '\n' + note.content)
         }
       })
     })

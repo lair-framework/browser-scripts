@@ -5,19 +5,19 @@ var findNoteByRegex = function (noteRegex, noteType) {
   //    project
   //    host
   //    service
-  //    vulnerability - searches the evidence field and notes
+  //    Issue - searches the evidence field and notes
   //
   // Usage: findNote('.*Linux.*', 'all')
   // Created by: Joey Belans
   // Requires client-side updates: false
 
-  var PROJECT_ID = Session.get('projectId')
+  var projectId = Session.get('projectId')
 
   var noteRe = new RegExp(noteRegex, 'i')
   if (noteType === 'project' || noteType === 'all') {
     console.log('Project Notes')
     var curProj = Projects.findOne({
-      '_id': PROJECT_ID
+      '_id': projectId
     }, {
       notes: 1
     })
@@ -30,7 +30,7 @@ var findNoteByRegex = function (noteRegex, noteType) {
   if (noteType === 'host' || noteType === 'all') {
     console.log('Host Notes')
     Hosts.find({
-      'project_id': PROJECT_ID,
+      'projectId': projectId,
       $or: [{
         'notes': {
           $elemMatch: {
@@ -55,15 +55,15 @@ var findNoteByRegex = function (noteRegex, noteType) {
     }).fetch().forEach(function (host) {
       host.notes.forEach(function (note) {
         if (noteRe.test(note.title) || noteRe.test(note.content)) {
-          console.log('\t' + host.string_addr + ' -> ' + note.title)
+          console.log('\t' + host.ipv4 + ' -> ' + note.title)
         }
       })
     })
   }
   if (noteType === 'service' || noteType === 'all') {
     console.log('Service Notes')
-    Ports.find({
-      'project_id': PROJECT_ID,
+    Services.find({
+      'projectId': projectId,
       $or: [{
         'notes': {
           $elemMatch: {
@@ -85,22 +85,22 @@ var findNoteByRegex = function (noteRegex, noteType) {
       }]
     }, {
       notes: 1
-    }).fetch().forEach(function (port) {
-      port.notes.forEach(function (note) {
+    }).fetch().forEach(function (service) {
+      service.notes.forEach(function (note) {
         if (noteRe.test(note.title) || noteRe.test(note.content)) {
-          var portHost = Hosts.findOne({
-            'project_id': PROJECT_ID,
-            '_id': port.host_id
+          var serviceHost = Hosts.findOne({
+            'projectId': projectId,
+            '_id': service.hostId
           })
-          console.log('\t' + portHost.string_addr + ' -> ' + port.port.toString() + ' -> ' + note.title)
+          console.log('\t' + serviceHost.ipv4 + ' -> ' + service.service.toString() + ' -> ' + note.title)
         }
       })
     })
   }
-  if (noteType === 'vulnerability' || noteType === 'all') {
-    console.log('Vulnerability Notes')
-    Vulnerabilities.find({
-      'project_id': PROJECT_ID,
+  if (noteType === 'Issue' || noteType === 'all') {
+    console.log('Issue Notes')
+    Issues.find({
+      'projectId': projectId,
       $or: [{
         'evidence': {
           $regex: noteRegex,

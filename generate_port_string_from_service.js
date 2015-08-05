@@ -1,5 +1,8 @@
-var generatePortStringFromService = function (service) {
-  // Generates a comma separated unique list of open ports for the current project that matches
+/* eslint-disable no-unused-vars */
+/* globals Session Services _ Meteor */
+
+function generatePortStringFromService (service) {
+  // Generates a comma separated unique list of open services for the current project that matches
   // the regular expression provided as 'service'.
 
   // Usage: generatePortStringFromService(/http/)
@@ -7,13 +10,13 @@ var generatePortStringFromService = function (service) {
   // Created by: Tom Steele
   // Requires client-side updates: false
 
-  var PROJECT_ID = Session.get('projectId')
+  var projectId = Session.get('projectId')
   var query = {
-    'project_id': PROJECT_ID,
+    'projectId': projectId,
     'service': service
   }
-  var ports = Ports.find(query).fetch()
-  return _.uniq(_.pluck(ports, 'port')).sort(function (a, b) {
+  var services = Services.find(query).fetch()
+  return _.uniq(_.pluck(services, 'port')).sort(function (a, b) {
     return a - b
   }).join(',')
 }

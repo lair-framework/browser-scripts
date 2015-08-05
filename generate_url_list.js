@@ -1,4 +1,7 @@
-var generateURLList = function () {
+/* eslint-disable no-unused-vars */
+/* globals Session Hosts Services Meteor */
+
+function generateURLList () {
   // Generate a list of URLs for all http(s) services in the current project
   //
   // Created by: Dan Kottmann
@@ -7,7 +10,7 @@ var generateURLList = function () {
 
   var projectId = Session.get('projectId')
   var q = {
-    'project_id': projectId
+    'projectId': projectId
   }
   var hosts = Hosts.find(q).fetch()
   if (!hosts) {
@@ -19,24 +22,24 @@ var generateURLList = function () {
     var names = host.hostnames
     var hostId = host._id
     var query = {
-      'project_id': projectId,
-      'host_id': hostId
+      'projectId': projectId,
+      'hostId': hostId
     }
     query.service = {
       '$regex': 'web|www|ssl|http|https',
       '$options': 'i'
     }
-    var ports = Ports.find(query).fetch()
-    ports.forEach(function (port) {
+    var services = Services.find(query).fetch()
+    services.forEach(function (service) {
       var protocol = 'http://'
-      if (port.service.match(/(ssl|https)/g)) {
+      if (service.service.match(/(ssl|https)/g)) {
         protocol = 'https://'
       }
       c++
-      console.log(protocol + host.string_addr + ':' + port.port)
+      console.log(protocol + host.ipv4 + ':' + service.port)
       names.forEach(function (n) {
         c++
-        console.log(protocol + n + ':' + port.port)
+        console.log(protocol + n + ':' + service.port)
       })
     })
   })

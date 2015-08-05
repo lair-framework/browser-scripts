@@ -1,16 +1,19 @@
-var hostnamesToNessus = function () {
-  // Generate a list of hostname[string_addr] targets suitable for input into Nessus.
+/* eslint-disable no-unused-vars */
+/* globals Session Hosts Meteor */
+
+function hostnamesToNessus () {
+  // Generate a list of hostname[ipv4] targets suitable for input into Nessus.
   //
   // Created by: Tom Steele
   // Usage: hostnamesToNessus()
   // Requires client-side updates: false
 
   var hosts = Hosts.find({
-    project_id: Session.get('projectId')
+    projectId: Session.get('projectId')
   }).fetch()
   var vhostTargets = []
   hosts.forEach(function (host) {
-    var ip = host.string_addr
+    var ip = host.ipv4
     host.hostnames.forEach(function (name) {
       var item = name + '[' + ip + ']'
       vhostTargets.push(item)

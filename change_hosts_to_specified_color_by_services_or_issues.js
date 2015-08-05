@@ -3,7 +3,7 @@
 function changeHostsToSpecifiedColorByServicesOrIssues (servicesOrIssues, statusOption, lairColor) {
   // Changes host color based on services|issues of the host
   //
-  // This is good for editing large chucks of hosts based on port or vuln color.
+  // This is good for editing large chucks of hosts based on service or vuln color.
   // Example: You've marked a bunch of services green and want to change all hosts, whose services are now all
   // green, to green. You run: changeHostsToSpecifiedColorByServicesOrIssues('services', 'lair-green', 'lair-green')
   //
@@ -61,7 +61,7 @@ function changeHostsToSpecifiedColorByServicesOrIssues (servicesOrIssues, status
   }
 
   // Define getServices
-  // Returns port array of given host id
+  // Returns service array of given host id
   function getServices (id) {
     return Services.find({
       'projectId': projectId,
@@ -70,7 +70,7 @@ function changeHostsToSpecifiedColorByServicesOrIssues (servicesOrIssues, status
   }
 
   // Define getIssues
-  // Returns port array of given host id
+  // Returns service array of given host id
   function getIssues (id) {
     var hostIpv4 = Hosts.findOne({ '_id': id }).ipv4
     return Issues.find({
@@ -94,7 +94,7 @@ function changeHostsToSpecifiedColorByServicesOrIssues (servicesOrIssues, status
   }
 
   if (StatusMap.indexOf(lairColor) === -1) {
-    console.log('Lair Supported colors: ' + StatusMap)
+    console.log('Lair Supserviceed colors: ' + StatusMap)
     throw {
       name: 'Wrong lairColor',
       message: 'Provided lairColor: "' + lairColor + '" is not Lair compliant'

@@ -1,5 +1,8 @@
-var getHostsByCIDR = function () {
-  // Generate a list of hostname[string_addr] targets from supplied CIDR range
+/* eslint-disable no-unused-vars */
+/* globals Session Hosts Meteor */
+
+function etHostsByCIDR () {
+  // Generate a list of hostname[ipv4] targets from supplied CIDR range
   //
   // Created by: Matt Burch
   // Usage: getHostsByCIDR('x.x.x.x/x') or getHostsByCIDR('x.x.x.x/x','y.y.y.y/y')
@@ -8,16 +11,16 @@ var getHostsByCIDR = function () {
   var hostTargets = []
   var nets = Array.prototype.slice.call(arguments, 0)
   var hosts = Hosts.find({
-    project_id: Session.get('projectId')
+    projectId: Session.get('projectId')
   }).fetch()
   var hostip = {}
 
   function dec2Bin (octet, cidr) {
     var pad = '00000000'
     var bin = parseInt(octet[0], 10).toString(2)
-    bincidr = (bin.length >= pad.length ? bin : pad.slice(0, pad.length - bin.length) + bin)
+    var bincidr = (bin.length >= pad.length ? bin : pad.slice(0, pad.length - bin.length) + bin)
 
-    for (i = 1; i <= octet.length; i++) {
+    for (var i = 1; i <= octet.length; i++) {
       bin = parseInt(octet[i], 10).toString(2)
       bincidr += (bin.length >= pad.length ? bin : pad.slice(0, pad.length - bin.length) + bin)
     }
@@ -26,8 +29,8 @@ var getHostsByCIDR = function () {
   }
 
   hosts.forEach(function (host) {
-    var ip = host.string_addr.split('.')
-    hostip[dec2Bin(ip, 32)] = host.string_addr
+    var ip = host.ipv4.split('.')
+    hostip[dec2Bin(ip, 32)] = host.ipv4
   })
 
   nets.forEach(function (cidr) {
@@ -36,7 +39,7 @@ var getHostsByCIDR = function () {
     var netbin = dec2Bin(net, cidr[1])
 
     for (var key in hostip) {
-      if ((key.slice(0, parseInt(cidr[1], 10))) == netbin) {
+      if ((key.slice(0, parseInt(cidr[1], 10))) === netbin) {
         console.log(hostip[key])
       }
     }

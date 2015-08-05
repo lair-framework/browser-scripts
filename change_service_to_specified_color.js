@@ -1,4 +1,6 @@
-var changeServicesToSpecifiedColor = function (lairService, lairColor) {
+/* eslint-disable no-unused-vars */
+/* globals Meteor Session Services */
+function changeServicesToSpecifiedColor (lairService, lairColor) {
   // Changes the status of a given service to the specified color
   //
   // Created by: Dan Kottmann
@@ -7,28 +9,28 @@ var changeServicesToSpecifiedColor = function (lairService, lairColor) {
   // Colors available: lair-grey, lair-blue, lair-green, lair-orange, lair-red
   // Requires client-side updates: true
 
-  var PROJECT_ID = Session.get('projectId')
-  var MODIFIED_BY = Meteor.user().emails[0].address
+  var projectId = Session.get('projectId')
+  var modifiedBy = Meteor.user().emails[0].address
 
   if (lairColor !== 'lair-grey' && lairColor !== 'lair-blue' && lairColor !== 'lair-green' && lairColor !== 'lair-orange' && lairColor !== 'lair-red') {
     console.log('Invalid color specified')
     return
   }
-  var services = Ports.find({
-    'project_id': PROJECT_ID,
+  var services = Services.find({
+    'projectId': projectId,
     'service': lairService
   }).fetch()
   if (services.length < 1) {
     console.log('No services found')
     return
   }
-  services.forEach(function (port) {
-    Ports.update({
-      '_id': port._id
+  services.forEach(function (service) {
+    Services.update({
+      '_id': service._id
     }, {
       $set: {
         'status': lairColor,
-        'last_modified_by': MODIFIED_BY
+        'last_modifiedBy': modifiedBy
       }
     })
   })

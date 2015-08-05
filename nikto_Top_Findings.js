@@ -1,14 +1,16 @@
-var niktoTopFindings = function () {
+/* eslint-disable no-unused-vars */
+/* globals Session Services Hosts Meteor */
+
+function niktoTopFindings () {
   // Lists Nikto Top Findings results per host/vhost
   //
   // Created by: Matt Burch
   // Usage: niktoTopFindings()
-  // 
-  //
-  var NIKTO = new RegExp('Nikto')
+
+  var nikto = new RegExp('Nikto')
   var findings = {}
-  var PROJECT_ID = Session.get('projectId')
-  var TOPFINDINGS = [
+  var projectId = Session.get('projectId')
+  var topFindings = [
     '(.*might be interesting.*)',
     '(.*Public HTTP Methods:.*PUT.*)',
     '(.*[Ww]eb[Dd]av.*)',
@@ -18,25 +20,25 @@ var niktoTopFindings = function () {
     '(.*OSVDBID:.*)'
   ]
 
-  var ports = Ports.find({
-    'project_id': PROJECT_ID
+  var services = Services.find({
+    'projectId': projectId
   }).fetch()
-  ports.forEach(function (port) {
+  services.forEach(function (service) {
     var host = Hosts.findOne({
-      'project_id': PROJECT_ID,
-      '_id': port.host_id
+      'projectId': projectId,
+      '_id': service.hostId
     })
-    port.notes.forEach(function (note) {
-      if (NIKTO.test(note.title)) {
+    service.notes.forEach(function (note) {
+      if (nikto.test(note.title)) {
         var title = note.title.match(/\(.*\)/)
 
-        var search = new RegExp(TOPFINDINGS.join('|') + '\\n', 'g')
+        var search = new RegExp(topFindings.join('|') + '\\n', 'g')
         var f = note.content.match(search)
         if (f) {
-          if (!(findings[host.string_addr + ' ' + title])) {
-            findings[host.string_addr + ' ' + title] = []
+          if (!(findings[host.ipv4 + ' ' + title])) {
+            findings[host.ipv4 + ' ' + title] = []
           }
-          findings[host.string_addr + ' ' + title].push(f.join(''))
+          findings[host.ipv4 + ' ' + title].push(f.join(''))
         }
 
       }

@@ -1,20 +1,23 @@
-var generateUniquePortString = function (protocol) {
-  // Generates a comma separate unique list of open ports for the current project
+/* eslint-disable no-unused-vars */
+/* globals Session Services _ Meteor */
+
+function generateUniquePortString (protocol) {
+  // Generates a comma separate unique list of open services for the current project
   //
   // Usages: generateUniquePortString()
   //         generateUniquePortString('tcp')
   // Created by: Tom Steele
   // Requires client-side updates: false
 
-  var PROJECT_ID = Session.get('projectId')
+  var projectId = Session.get('projectId')
   var query = {
-    'project_id': PROJECT_ID
+    'projectId': projectId
   }
   if (typeof protocol !== 'undefined') {
     query.protocol = protocol
   }
-  var ports = Ports.find(query).fetch()
-  return _.uniq(_.pluck(ports, 'port')).sort(function (a, b) {
+  var services = Services.find(query).fetch()
+  return _.uniq(_.pluck(services, 'port')).sort(function (a, b) {
     return a - b
   }).join(',')
 }

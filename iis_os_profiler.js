@@ -1,24 +1,27 @@
+/* eslint-disable no-unused-vars */
+/* globals Session Services Meteor Models */
+
 var iisOsProfiler = function () {
-  // Loops over every port who's product matches IIS X.X and performs a 
+  // Loops over every service who's product matches IIS X.X and performs a
   // best guess at the operating system, inserting the guess into the
-  // port's host's os array.
+  // service's host's os array.
   //
   // Usage: iisOsProfiler()
   // Created by: Tom Steele
   // Requires client-side updates: false
 
-  var PROJECT_ID = Session.get('projectId')
-  var WEIGHT = 90
-  var TOOL = 'IIS OS Profiler'
-  var ports = Ports.find({
-    'project_id': PROJECT_ID,
+  var projectId = Session.get('projectId')
+  var weight = 90
+  var tool = 'IIS OS Profiler'
+  var services = Services.find({
+    'projectId': projectId,
     'product': {
       '$regex': /IIS\s(httpd\s)?\d+\.\d+/,
       '$options': 'i'
     }
   }).fetch()
-  ports.forEach(function (port) {
-    var product = port.product
+  services.forEach(function (service) {
+    var product = service.product
     var res = product.match(/\d+\.\d+/)
     if (res === null) {
       return
@@ -27,9 +30,9 @@ var iisOsProfiler = function () {
     if (isNaN(version)) {
       return
     }
-    var os = models.os()
-    os.tool = TOOL
-    os.weight = WEIGHT
+    var os = Models.os()
+    os.tool = tool
+    os.weight = weight
     if (version < 6) {
       os.fingerprint = 'Microsoft Windows Server 2000'
     } else if (version < 7) {
@@ -40,11 +43,11 @@ var iisOsProfiler = function () {
       os.fingerprint = 'Microsoft Windows Server 2012'
     }
     if (os.fingerprint !== '') {
-      Meteor.call('addHostOs', PROJECT_ID, port.host_id, os.tool, os.fingerprint, os.weight, function (err) {
+      Meteor.call('setOs', projectId, service.hostId, os.tool, os.fingerprint, os.weight, function (err) {
         if (err) {
-          console.log('Error generating OS for', port.host_id, err)
+          console.log('Error generating OS for', service.hostId, err)
         } else {
-          console.log('Created new OS', os.fingerprint, 'for', port.host_id)
+          console.log('Created new OS', os.fingerprint, 'for', service.hostId)
         }
       })
     }
