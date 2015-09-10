@@ -1,12 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* globals Session Meteor Services */
-function changeServicesRegexToSpecifiedColor (lairServiceRegex, lairColor) {
-  // Changes the status of a given service to the specified color
+function changeServicesToSpecifiedColor (lairPort, lairColor) {
+  // Changes the status of the given service number to the specified color
   //
-  // Updated to include Regex by Isaiah Sarju
   // Created by: Dan Kottmann
   // Updated by: Ryan Dorey
-  // Usage: changeServicesRegexToSpecifiedColor(/*.sql.*/, 'lair-blue')
+  // Usage: changeServicesToSpecifiedColor(80, 'lair-orange')
   // Colors available: lair-grey, lair-blue, lair-green, lair-orange, lair-red
   // Requires client-side updates: true
 
@@ -19,23 +18,22 @@ function changeServicesRegexToSpecifiedColor (lairServiceRegex, lairColor) {
   }
   var services = Services.find({
     'projectId': projectId,
-    'service': {
-      '$regex': lairServiceRegex
-    }
+    'service': lairPort
   }).fetch()
   if (services.length < 1) {
     console.log('No services found')
     return
   }
   services.forEach(function (service) {
+    console.log('Updating: ' + service.service + '/' + service.protocol)
     Services.update({
       '_id': service._id
     }, {
       $set: {
         'status': lairColor,
-        'lastModifiedBy': modifiedBy
+        'last_modified_by': modifiedBy
       }
     })
   })
-  console.log('Total of ' + services.length + ' service(s) updated to ' + lairColor + '.')
+  console.log('Total of ' + services.length + ' service(s) updated')
 }

@@ -1,13 +1,13 @@
 /* eslint-disable no-unused-vars */
-/* globals projectId Hosts Services Session StatusMap */
-function countHostServicesBycolor (color) {
-  // Logs a count of all service by color per host
+/* globals Session Services Hosts Meteor StatusMap */
+
+function listHostServicesBycolor (color) {
+  // Logs a list of all services by color per host
   //
   // Created by: Matt Burch
   // Usage: countHostServicesBycolor('lair-grey')
   // Supserviceed colors: console.log(StatusMap)
   //
-  var hosts = {}
   var projectId = Session.get('projectId')
 
   if (StatusMap.indexOf(color) === -1) {
@@ -23,17 +23,10 @@ function countHostServicesBycolor (color) {
     'status': color
   }).fetch()
   services.forEach(function (service) {
-    host = Hosts.findOne({
+    var host = Hosts.findOne({
       'projectId': projectId,
       '_id': service.hostId
     })
-    if (hosts.hasOwnProperty(host.ipv4)) {
-      hosts[host.ipv4]++
-    } else {
-      hosts[host.ipv4] = 1
-    }
+    console.log(host.ipv4 + ':' + service.port + '/' + service.protocol)
   })
-  for (var host in hosts) {
-    console.log(host + ' (' + hosts[host] + ')')
-  }
 }
