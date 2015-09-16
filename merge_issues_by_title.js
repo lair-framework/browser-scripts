@@ -85,7 +85,7 @@ function mergeIssuesByTitle (issueRegex, newTitle, cvss) {
   var newCVEs = unique(cves)
 
   // Create the new Issue
-  Meteor.call('addIssue', projectId, newTitle, cvss, newDescription, newEvidence, newSolution, function (err, res) {
+  Meteor.call('createIssue', projectId, newTitle, cvss, newDescription, newEvidence, newSolution, function (err, res) {
     if (err) {
       console.log('Error: could not create new Issue', err.message)
       if (existingVenerability) {

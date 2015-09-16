@@ -99,7 +99,7 @@ function mergeIssues (titleRegex, minCVSS, maxCVSS, hostsRegex, newTitle, newCVS
     var newHostList = unique(hostList)
     var newCVEs = unique(cves)
     // Create the new Issue
-    Meteor.call('addIssue', projectId, newTitle, newCVSS, newDescription, newEvidence, newSolution, function (err, res) {
+    Meteor.call('createIssue', projectId, newTitle, newCVSS, newDescription, newEvidence, newSolution, function (err, res) {
       if (err) {
         console.log('Error: could not create new Issue', err.message)
         if (existingIssue) {
