@@ -5,7 +5,7 @@ function mergeIssuesByTitle (issueRegex, newTitle, cvss) {
   // Merges all issues identified by a regular expression into a new or existing Issue
   // provided by newTitle.
   //
-  // Usage: mergeIssuesByTitle(/^VMSA.*/, 'Multiple VMWare Vulneraiblities', '10.0')
+  // Usage: mergeIssuesByTitle(/^VMSA.*/, 'Multiple VMWare Vulneraiblities', 10.0)
   // Created by: Tom Steele
   // Requires client-side updates: false
   //
@@ -40,8 +40,8 @@ function mergeIssuesByTitle (issueRegex, newTitle, cvss) {
   if (typeof newTitle !== 'string') {
     return console.log('Invalid title')
   }
-  if (typeof cvss !== 'string') {
-    return console.log('Invalid cvss. Variable must be a string')
+  if (typeof cvss !== 'number') {
+    return console.log('Invalid cvss. Variable must be a number')
   }
 
   var projectId = Session.get('projectId')
