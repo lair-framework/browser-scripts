@@ -21,6 +21,6 @@ function deleteServices (port, protocol, service) {
 
   services.forEach(function (service) {
     console.log('Removing Service : ' + service._id + ' ' + service.port + '/' + service.protocol + ' ' + service.service)
-    Meteor.call('removeService', projectId, service._id, function () {})
+    Meteor.call('removeService', projectId, service.hostId, service._id)
   })
 }
