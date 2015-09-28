@@ -1,5 +1,5 @@
-var setGlobalServiceByPort = function (service, protocol, service) {
-  // Set the service name for the specified service
+var setGlobalServiceByPort = function (port, protocol, service) {
+  // Set the service name for the specified service.
   //
   // Usage: setGlobalServiceByPort(443, 'tcp', 'https')
   // Created by: Jason Doyle
@@ -8,14 +8,14 @@ var setGlobalServiceByPort = function (service, protocol, service) {
   var projectId = Session.get('projectId')
   var services = Services.find({
     'projectId': projectId,
-    'service': service,
+    'port': port,
     'protocol': protocol,
     'service': {
       '$ne': service
     }
   })
   services.forEach(function (service) {
-    Meteor.call('setService', projectId, service._id, service, function (err) {
+    Meteor.call('setServiceService', projectId, service._id, service, function (err) {
       if (!err) {
         console.log('Modified service successfully')
       }
