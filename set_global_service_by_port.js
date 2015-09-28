@@ -14,8 +14,8 @@ var setGlobalServiceByPort = function (port, protocol, service) {
       '$ne': service
     }
   })
-  services.forEach(function (service) {
-    Meteor.call('setServiceService', projectId, service._id, service, function (err) {
+  services.forEach(function (s) {
+    Meteor.call('setServiceService', projectId, s._id, service, function (err) {
       if (!err) {
         console.log('Modified service successfully')
       }
