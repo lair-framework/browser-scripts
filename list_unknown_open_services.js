@@ -36,7 +36,7 @@ function listUnknownOpenServices (scope, outputFormat) {
     services.forEach(function (service) {
       if (service.port > 0) {
         if (scope === 'product') {
-          if (service.product === 'unknown') {
+          if (service.product.toLowerCase() === 'unknown') {
             hostlist.push(host.ipv4)
             if (service.protocol === 'tcp') {
               tcpservices.push(service.port)
@@ -45,7 +45,7 @@ function listUnknownOpenServices (scope, outputFormat) {
             }
           }
         } else if (scope === 'service') {
-          if (service.port === 'unknown') {
+          if (service.service.toLowerCase() === 'unknown') {
             hostlist.push(host.ipv4)
             if (service.protocol === 'tcp') {
               tcpservices.push(service.port)
@@ -54,7 +54,7 @@ function listUnknownOpenServices (scope, outputFormat) {
             }
           }
         } else if (scope === 'both') {
-          if (service.port === 'unknown' || service.product === 'unknown') {
+          if (service.service.toLowerCase() === 'unknown' || service.product.toLowerCase() === 'unknown') {
             hostlist.push(host.ipv4)
             if (service.protocol === 'tcp') {
               tcpservices.push(service.port)
