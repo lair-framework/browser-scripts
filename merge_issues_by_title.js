@@ -1,6 +1,15 @@
 /* eslint-disable no-unused-vars */
 /* globals Session Hosts Issues Meteor */
 
+function getHostList(Issue){
+  var hosts = '';
+  for(var i=0;i<Issue.hosts.length;i++){
+      hosts += Issue.hosts[i].ipv4 + ',';
+    }
+    return hosts + '\n';
+}
+
+
 function mergeIssuesByTitle (issueRegex, newTitle, cvss) {
   // Merges all issues identified by a regular expression into a new or existing Issue
   // provided by newTitle.
@@ -74,9 +83,10 @@ function mergeIssuesByTitle (issueRegex, newTitle, cvss) {
   var hostList = []
   // Loop over each Issue and combine the data
   issues.forEach(function (Issue) {
-    newDescription += '\n\n' + 'From ' + Issue.title + '\n' + Issue.description
-    newSolution += '\n\n' + 'From ' + Issue.title + '\n' + Issue.solution
-    newEvidence += '\n\n' + 'From ' + Issue.title + '\n' + Issue.evidence
+    issue_hosts = getHostList(Issue);
+    newDescription += '\n\n' + 'From ' + Issue.title + '\n' + 'Affected Hosts: ' + issue_hosts + Issue.description;
+    newSolution += '\n\n' + 'From ' + Issue.title + '\n' + 'Affected Hosts: ' + issue_hosts + Issue.solution;
+    newEvidence += '\n\n' + 'From ' + Issue.title + '\n' + 'Affected Hosts: ' + issue_hosts + Issue.evidence;
     newNotes = newNotes.concat(Issue.notes)
     cves = cves.concat(Issue.cves)
     hostList = hostList.concat(Issue.hosts)
@@ -107,7 +117,7 @@ function mergeIssuesByTitle (issueRegex, newTitle, cvss) {
       Meteor.call('addHostToIssue', projectId, IssueId, host.ipv4, host.port, host.protocol)
     })
     newCVEs.forEach(function (cve) {
-      Meteor.call('addCve', projectId, IssueId, cve)
+      Meteor.call('addCVE', projectId, IssueId, cve)
     })
     removeIssues()
   }
