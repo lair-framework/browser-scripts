@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* globals Session Hosts Meteor */
 
-function etHostsByCIDR () {
+function getHostsByCIDR () {
   // Generate a list of hostname[ipv4] targets from supplied CIDR range
   //
   // Created by: Matt Burch

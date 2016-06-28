@@ -85,16 +85,20 @@ function mergeIssues (titleRegex, minCVSS, maxCVSS, hostsRegex, newTitle, newCVS
     var newSolution = ''
     var newEvidence = ''
     var newNotes = []
+    var newReferences = []
     var cves = []
     var hostList = []
+    var newFiles = []
     // Loop over each Issue and combine the data
     issues.forEach(function (Issue) {
-      newDescription = ''
+      newDescription = newDescription + 'CVSS: ' + Issue.cvss + ' - Hosts: ' + Issue.hosts.length + ' - Title: ' + Issue.title + "\n"
       newSolution = ''
       newEvidence = ''
+      newReferences = newReferences.concat(Issue.references)
       newNotes = newNotes.concat(Issue.notes)
       cves = cves.concat(Issue.cves)
       hostList = hostList.concat(Issue.hosts)
+      newFiles = newFiles.concat(Issue.files)
     })
     var newHostList = unique(hostList)
     var newCVEs = unique(cves)
@@ -152,7 +156,10 @@ function mergeIssues (titleRegex, minCVSS, maxCVSS, hostsRegex, newTitle, newCVS
       Meteor.call('addHostToIssue', projectId, issueId, host.ipv4, host.port, host.protocol)
     })
     newCVEs.forEach(function (cve) {
-      Meteor.call('addCve', projectId, issueId, cve)
+      Meteor.call('addCVE', projectId, issueId, cve)
+    })
+    newReferences.forEach(function (ref) {
+      Meteor.call('addReference', projectId, issueId, ref.link, ref.name)
     })
     removeIssues()
   }
