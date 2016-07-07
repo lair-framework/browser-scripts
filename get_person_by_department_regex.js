@@ -1,5 +1,5 @@
 function getPersonByDepartmentRegex (dep) {
-  // Generate a list of hostname[ipv4] targets from supplied CIDR range
+  // Generate a of email addresses based on person department regex by Principal, Department, Email
   //
   // Created by: Matt Burch
   // Usage: getPersonByDepartmentRegex(/CIO/)
