@@ -32,7 +32,7 @@ function generateURLList () {
     var services = Services.find(query).fetch()
     services.forEach(function (service) {
       var protocol = 'http://'
-      if (service.service.match(/(ssl|https)/g)) {
+      if (service.service.match(/(ssl|https)/gi)) {
         protocol = 'https://'
       }
       c++
