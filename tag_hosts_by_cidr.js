@@ -3,7 +3,7 @@ function tagHostsByCIDR (tag, net) {
   //
   // Created by: James Cook
   // borrowed a lot from: https://github.com/lair-framework/browser-scripts/blob/master/get_hosts_by_cidr.js
-  // Usage: tagHostsByCIDR('x.x.x.x/x', 'tagname')
+  // Usage: tagHostsByCIDR('tagname', 'x.x.x.x/x')
   //
   var hostTargets = []
   var hosts = Hosts.find({
