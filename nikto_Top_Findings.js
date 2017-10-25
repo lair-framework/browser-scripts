@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* globals Session Services Hosts Meteor */
 
-function niktoTopFindings () {
+function niktoTopFindings (custom, filter) {
   // Lists Nikto Top Findings results per host/vhost
   //
   // Created by: Matt Burch
-  // Usage: niktoTopFindings()
+  // Usage: niktoTopFindings([], true)
+  // Usage: niktoTopFindings(['(.*might be interesting.*)'], true)
+  // Usage: niktoTopFindings([], false)
 
   var nikto = new RegExp('Nikto')
   var findings = {}
@@ -19,6 +21,9 @@ function niktoTopFindings () {
     '(.*Server leaks.*IP.*)',
     '(.*OSVDBID:.*)'
   ]
+  if (custom.length > 0) {
+    topFindings = custom
+  }
 
   var services = Services.find({
     'projectId': projectId
@@ -32,20 +37,28 @@ function niktoTopFindings () {
       if (nikto.test(note.title)) {
         var title = note.title.match(/\(.*\)/)
 
-        var search = new RegExp(topFindings.join('|') + '\\n', 'g')
-        var f = note.content.match(search)
-        if (f) {
-          if (!(findings[host.ipv4 + ' ' + title])) {
-            findings[host.ipv4 + ' ' + title] = []
+        if (filter) {
+          var search = new RegExp(topFindings.join('|') + '\\n', 'g')
+          var f = note.content.match(search)
+          if (f) {
+            if (!(findings[host.ipv4 + ' ' + title])) {
+              findings[host.ipv4 + ' ' + title] = []
+            }
+            findings[host.ipv4 + ' ' + title].push(f.join(''))
           }
-          findings[host.ipv4 + ' ' + title].push(f.join(''))
+        } else {
+          console.log(host.ipv4 + ' ' + title)
+          console.log(note.content)
         }
+
 
       }
     })
   })
-  for (var key in findings) {
-    console.log(key)
-    console.log(findings[key].join(''))
+  if (filter) {
+    for (var key in findings) {
+      console.log(key)
+      console.log(findings[key].join(''))
+    }
   }
 }
