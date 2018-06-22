@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* globals Session Hosts Services Meteor */
 
-function istHostServicesByServiceRegex (serviceRegex) {
+function listHostServicesByServiceRegex (serviceRegex) {
   // Logs a list of all services by service regex per host
   //
   // Created by Isaiah Sarju
