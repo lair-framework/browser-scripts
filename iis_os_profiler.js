@@ -41,6 +41,8 @@ var iisOsProfiler = function () {
       os.fingerprint = 'Microsoft Windows Server 2008'
     } else if (version < 9) {
       os.fingerprint = 'Microsoft Windows Server 2012'
+    } else if (version < 11) {
+      os.fingerprint = 'Microsoft Windows Server 2016'
     }
     if (os.fingerprint !== '') {
       Meteor.call('setOs', projectId, service.hostId, os.tool, os.fingerprint, os.weight, function (err) {
