@@ -1,16 +1,21 @@
 /* eslint-disable no-unused-vars */
 /* globals Session Hosts Services Meteor */
 
-function generateURLList () {
+function generateURLList (tag) {
   // Generate a list of URLs for all http(s) services in the current project
   //
   // Created by: Dan Kottmann
+  // Updated by: Keith Thome to support tags
   // Usage: generateURLList()
+  // Usage: generateURLList('tag')
   // Requires client-side updates: false
 
   var projectId = Session.get('projectId')
   var q = {
     'projectId': projectId
+  }
+  if (typeof tag !== 'undefined') {
+    q.tags = tag
   }
   var hosts = Hosts.find(q).fetch()
   if (!hosts) {
